@@ -184,10 +184,56 @@
 //}
 
 #include<bits/stdc++.h>
-int main() {
+using namespace std;
 
+void TH(string &y);//替换排序
+int main() {
+	string x, y, z, k;
+	while (cin >> x >> y) {//输入流
+		TH(y);
+		int length = y.length();
+		char a[1000], b[1000]; int i = 0, flag = 0;
+		for (char& c : y) {
+			a[i] = c;
+			i++;
+		}
+		for (char& c : x) {
+			b[i] = c;
+			i++;
+		}
+		for (int i = 0; i < length; i++)
+		{
+			for (int j = i; j < length; j++)
+			{
+				flag = 0;
+				if (a[i] == b[j])flag = 1;
+			}
+		}
+		if (flag) {
+			cout << "YES" << endl;//输出流
+		}
+		else cout << "NO" << endl;
+	}
+	return 0;
+}
+void TH(string &y) {  //&y为提取y值,实参到形参
+	for (char &c : y) //for循环遍历字符串中的每个字符，把y提取到字符c
+		c = (c - 'A' + 1) % 26 + 'A';
 }
 
+
+
+//#include<bits/stdc++.h>
+//int main() {
+//
+//
+//
+//}
+
+//#include<bits/stdc++.h>
+//int main() {
+//
+//}
 
 //#include<stdio.h>
 //int main() {
