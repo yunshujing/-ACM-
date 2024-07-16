@@ -1,4 +1,8 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<bits/stdc++.h>
+
+/*
+//找完全平方数
 
 int main() {
 	for (int a = 1; a <= 9; a++) {
@@ -11,10 +15,11 @@ int main() {
 		}
 	}
 }
+*/
 
-
-
+/*
 //阶乘之和的末6位数 
+
 #include<bits/stdc++.h>
 const int M = 1e6;
 int main() {
@@ -30,3 +35,85 @@ int main() {
 		printf("%lld %lld\n", n, s);
 	}
 }
+*/
+
+/*
+//c(n,m)=n!/(m!*(n-m)!)
+
+#include<stdio.h>
+#include<math.h>
+typedef unsigned long long ull;  //ll 2^63-1>>unsigned 2^64-1 变大一倍
+//求阶乘
+ull f(int);
+int main() {
+	int n, m;
+	while (~scanf("%d %d", &n,&m)) {
+		int x = f(n) / (f(m) * f(n - m));
+		printf("c(%d,%d) = %d\n", x);
+	}
+	return 0;
+}
+
+ull f(int n) {
+	int x = 1;
+	for (int i = 1; i <= n; i++)
+	{
+		x *= i;
+	}
+	return x;
+}
+*/
+
+
+//孪生素数
+//``c
+#include<stdio.h>
+#include<math.h>
+int ss(int);
+int main() {
+	int x;
+	while (~scanf("%d", &x)) {
+		if (true)
+		{
+
+		}
+	}
+}
+//``
+//``c++
+#include<cstdio>
+#include<iostream>     //输入输出流
+using namespace std;   //使用名字空间std
+//判断x是否素数
+bool isPrime(int x);
+int main() {
+	int m;
+	while (cin >> m)  //cin是输入流istream类对象，>>是提取运算符，存到m中
+	{
+		//从大到小枚举
+		for (int i = m; i >= 5; i--)
+		{
+			if (isPrime(i) && isPrime(i - 2)) {
+				//cout是输出流ostream类的对象，<<是插入运算符，按顺序输出小的、空格、大的、换行，endl是换行
+				cout << i - 2 << " " << i << endl;
+			}
+		}
+	}
+	return 0;
+}
+//函数定义，素数判断
+bool isPrime(int x) {
+	if (x < 2)
+	{
+		return false;
+	}
+	//试除法
+	for (int i = 2; i <= x/i; i++)
+	{
+		if (x % i == 0) {
+			return false;
+		}
+	}
+	return true;
+}
+

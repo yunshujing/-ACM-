@@ -1,14 +1,15 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-//#include<stdio.h>
-//int main() {
-//	int a, b;
-//	while (~scanf("%d %d", &a, &b)) {
-//		printf("%d\n", a + b);
-//	}
-//	return 0;
-//}
-
+/*
+#include<stdio.h>
+int main() {
+	int a, b;
+	while (~scanf("%d %d", &a, &b)) {
+		printf("%d\n", a + b);
+	}
+	return 0;
+}
+*/
 
 /*
 #include<stdio.h>
@@ -84,6 +85,17 @@ int main() {
 		}
 		printf("%d\n", b);
 		b = 0;
+	}
+	return 0;
+}
+*/
+
+/*
+#include<stdio.h>
+int main() {
+	int a, b;
+	while (~scanf("%d %d", &a, &b)) {
+		printf("%d\n\n", a + b);
 	}
 	return 0;
 }
