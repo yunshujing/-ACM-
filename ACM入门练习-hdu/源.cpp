@@ -37,6 +37,7 @@ int main() {
 }
 */
 
+
 /*
 #include<stdio.h>
 int main() {
@@ -53,6 +54,7 @@ int main() {
 	return 0;
 }
 */
+
 
 /*
 #include<stdio.h>
@@ -73,6 +75,7 @@ int main() {
 }
 */
 
+
 /*
 #include<stdio.h>
 int main() {
@@ -90,6 +93,7 @@ int main() {
 }
 */
 
+
 /*
 #include<stdio.h>
 int main() {
@@ -100,6 +104,7 @@ int main() {
 	return 0;
 }
 */
+
 
 /*H
 #include<stdio.h>
@@ -121,6 +126,12 @@ int main() {
 */
 
 
+//
+
+
+//
+
+
 ////K
 //#include<stdio.h>
 //int main() {
@@ -138,6 +149,8 @@ int main() {
 //	}
 //}
 
+
+//L
 #include<stdio.h>
 int main() {
 	int n, m, i,j; int a[10], b[10];
@@ -168,3 +181,6 @@ int main() {
 		}
 	}
 }
+
+
+//M

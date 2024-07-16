@@ -52,7 +52,7 @@
 //}
 
 
-//#include<stdio.h>
+//#include<bits/stdc++.h>
 //bool isPrime(int x);
 //int main() {
 //	int n; 
@@ -184,6 +184,9 @@
 //}
 
 #include<bits/stdc++.h>
+int main() {
+
+}
 
 
 //#include<stdio.h>
