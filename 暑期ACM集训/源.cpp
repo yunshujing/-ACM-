@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include<bits/stdc++.h>
+//#include<bits/stdc++.h>
 
 /*
 //找完全平方数
@@ -15,11 +15,10 @@ int main() {
 		}
 	}
 }
-*/
 
-/*
+
+
 //阶乘之和的末6位数 
-
 #include<bits/stdc++.h>
 const int M = 1e6;
 int main() {
@@ -35,11 +34,10 @@ int main() {
 		printf("%lld %lld\n", n, s);
 	}
 }
-*/
 
-/*
+
+
 //c(n,m)=n!/(m!*(n-m)!)
-
 #include<stdio.h>
 #include<math.h>
 typedef unsigned long long ull;  //ll 2^63-1>>unsigned 2^64-1 变大一倍
@@ -66,20 +64,6 @@ ull f(int n) {
 
 
 //孪生素数
-//``c
-#include<stdio.h>
-#include<math.h>
-int ss(int);
-int main() {
-	int x;
-	while (~scanf("%d", &x)) {
-		if (true)
-		{
-
-		}
-	}
-}
-//``
 //``c++
 #include<cstdio>
 #include<iostream>     //输入输出流
@@ -95,7 +79,7 @@ int main() {
 		{
 			if (isPrime(i) && isPrime(i - 2)) {
 				//cout是输出流ostream类的对象，<<是插入运算符，按顺序输出小的、空格、大的、换行，endl是换行
-				cout << i - 2 << " " << i << endl;
+				cout << i - 2 << " " << i << endl; break;
 			}
 		}
 	}
@@ -117,3 +101,26 @@ bool isPrime(int x) {
 	return true;
 }
 
+
+//引用类型
+#include<cstdio>
+#include<iostream>       //输入输出流
+using namespace std;     //使用名字空间std
+//交换2个整数
+void swap(int&, int&);   //引用类型作为函数形参,来代替指针
+
+int main() {
+	int a,b;
+	while (cin >> a >> b)  //cin是输入流istream类对象，>>是提取运算符，存到m中
+	{
+		swap(a, b);
+		cout << a << "," << b << endl;
+	}
+	return 0;
+}
+
+void swap(int&x, int&y) {
+	int t = x;
+	x = y;
+	y = t;
+}
