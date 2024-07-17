@@ -183,44 +183,51 @@
 //		return s == x;
 //}
 
+
+/*
+//替换密码
+//置换密码
 #include<bits/stdc++.h>
 using namespace std;
 
-void TH(string &y);//替换排序
 int main() {
-	string x, y, z, k;
-	while (cin >> x >> y) {//输入流
-		TH(y);
+	string x, y; 
+	while (cin >> x >> y) {                 //输入流
 		int length = y.length();
-		char a[1000], b[1000]; int i = 0, flag = 0;
-		for (char& c : y) {
-			a[i] = c;
-			i++;
+		int i = 0, flag=1;
+		int a[26] = { 0 }, b[26] = { 0 };
+		//不知道替换字符，则将字符转化为数字存储到数组中，只要比较数组即可
+		for (int i = 0; i < length; i++) {
+			a[int(x[i] - 'A')]++;           //字符串为特殊数组，可直接[]取用
+			b[int(y[i] - 'A')]++;
 		}
-		for (char& c : x) {
-			b[i] = c;
-			i++;
-		}
-		for (int i = 0; i < length; i++)
-		{
-			for (int j = i; j < length; j++)
-			{
-				flag = 0;
-				if (a[i] == b[j])flag = 1;
+		for (int i = 0; i < 26; i++) {
+			for (int j = i; j < 26; j++) {
+				if (a[i] < a[j]) {
+					int tmp = a[i];
+					a[i] = a[j];
+					a[j] = tmp;
+				}
+				if (b[i] < b[j]) {
+					int tmp = b[i];
+					b[i] = b[j];
+					b[j] = tmp;
+				}
 			}
 		}
-		if (flag) {
+		for (int i = 0; i < 26; i++)
+		{
+			if (a[i] != b[i]) { flag = 0; break; }
+		}
+		if (flag==1) {
 			cout << "YES" << endl;//输出流
 		}
 		else cout << "NO" << endl;
 	}
 	return 0;
 }
-void TH(string &y) {  //&y为提取y值,实参到形参
-	for (char &c : y) //for循环遍历字符串中的每个字符，把y提取到字符c
-		c = (c - 'A' + 1) % 26 + 'A';
-}
 
+*/
 
 
 //#include<bits/stdc++.h>

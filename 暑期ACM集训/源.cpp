@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
-//#include<bits/stdc++.h>
+//#include<bits/stdc++.h>万能头
 
+//Day1
 /*
 //找完全平方数
 
@@ -34,9 +35,10 @@ int main() {
 		printf("%lld %lld\n", n, s);
 	}
 }
+*/
 
-
-
+//Day2
+/*
 //c(n,m)=n!/(m!*(n-m)!)
 #include<stdio.h>
 #include<math.h>
@@ -60,7 +62,6 @@ ull f(int n) {
 	}
 	return x;
 }
-*/
 
 
 //孪生素数
@@ -124,3 +125,144 @@ void swap(int&x, int&y) {
 	x = y;
 	y = t;
 }
+
+*/
+
+//Day3
+/*
+## 递归
+1、递归调用
+2、递归出口
+
+
+### 案例1：设计一个求阶乘的递归函数
+
+1）形式化，写成一个函数，参数只有一个
+令f(n) = n!
+
+2）分解问题，尾递归，把n拿出来，子问题变成（n - 1）！
+
+3）找到相似性，得到递推式
+n!= (n - 1)!*n
+f(n) = f(n - 1) * n
+
+4）递归出口
+n > n - 1 > n - 2 > n - 3 > ...... > 0
+
+
+### 案例2：设计一个求解汉诺塔的递归函数
+
+1）形式化，写成一个函数，参数有4个
+```c
+//把n给盘子从a柱移到c柱，借助中间柱b
+void hanoi(int n, char a, char b, char c);
+```
+2）分解问题，尾递归，把最大的盘子n拿出来，分解成n号盘子和上面的n - 1个盘子
+
+3）找到相似性，得到递推式
+```c
+//1）上面的n-1个盘子从a柱移到中间柱b，借助c
+hanoi(n - 1, a, c, b);
+//2）最大的盘子n从a柱移动到c柱
+printf("move %d# from %c to %c\n", n, a, c);
+//3）上面从n-1个盘子从b柱到c柱
+hanoi(n - 1, b, a, c);
+```
+4）递归出口
+n > n - 1 > n - 2 > n - 3 > ...... > 0
+
+完整代码：
+```c
+#include<bits/stdc++.h>
+using namespace std;
+void hanoi(int n, char a, char b, char c);
+int main() {
+	int n;
+	while (cin >> n) {
+		hanoi(n, 'A', 'B', 'C');
+	}
+	return 0;
+}
+//把n给盘子从a柱移到c柱，借助中间柱b
+void hanoi(int n, char a, char b, char c) {
+	if (n == 0) return ;
+	//1）上面的n-1个盘子从a柱移到中间柱b，借助c
+	hanoi(n - 1, a, c, b);
+	//2）最大的盘子n从a柱移动到c柱
+	printf("move %d# from %c to %c\n", n, a, c);
+	//3）上面从n-1个盘子从b柱到c柱
+	hanoi(n - 1, b, a, c);
+}
+```
+
+
+### 案例3：字符串逆序
+
+1）形式化，写成一个函数，参数有1个
+```c
+//字符串s逆序
+void reverse(char *s);
+```
+2）分解问题，尾递归，把第一个字符s[0]拿出来，分成2部分首字符s[0]和剩余的字符串（起始地址是s + 1）
+
+3）找到相似性，得到递推式
+```c
+//1）把第一个字符放到后面
+char ts[2] = { s[0] };
+strcat(s + 1, ts);
+```
+4）递归出口
+n > n - 1 > n - 2 > n - 3 > ...... > 0
+
+完整代码：
+```c
+```
+
+
+### 案例4：x星球
+
+1）形式化，写成一个函数，参数有1个
+```c
+//字符串s逆序
+void reverse(char* s);
+```
+2）分解问题，有两种选择
+（1）车队开进检查站，f(a - 1, b + 1)
+（2）检查站开出1辆车，f(a, b - 1)
+
+3）找到相似性，得到递推式
+```c
+f(a, b) = f(a - 1, b + 1) + f(a, b - 1);
+```
+4）递归出口
+n > n - 1 > n - 2 > n - 3 > ...... > 0
+
+完整代码
+```c
+#include<bits/stdc++.h>
+using namespace std;
+int f(int, int);
+int main() {
+	int n;
+	while (cin >> n) {
+		cout << f(n, 0) << endl;
+	}
+	return 0;
+}
+//出站次序，车队有a辆车，检查站有b辆车
+int f(int a, int b) {
+	if (a == 0) {
+		return 1;
+	}
+	if (b == 0) {
+		return f(a-1,1);
+	}
+	return f(a - 1, b + 1) + f(a, b - 1);
+}
+```
+
+*/
+
+
+
+
