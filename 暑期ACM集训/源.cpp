@@ -65,7 +65,7 @@ ull f(int n) {
 
 
 //孪生素数
-//``c++
+```c
 #include<cstdio>
 #include<iostream>     //输入输出流
 using namespace std;   //使用名字空间std
@@ -101,9 +101,10 @@ bool isPrime(int x) {
 	}
 	return true;
 }
-
+```
 
 //引用类型
+```c
 #include<cstdio>
 #include<iostream>       //输入输出流
 using namespace std;     //使用名字空间std
@@ -125,7 +126,7 @@ void swap(int&x, int&y) {
 	x = y;
 	y = t;
 }
-
+```
 */
 
 //Day3
@@ -263,6 +264,222 @@ int f(int a, int b) {
 
 */
 
+//Day4
+/*
+## 指针
+```c
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	int a = 10;
+	scanf("%d",&a);				//& 为取地址符
+	cout << *(&a) << endl;		//* 为解引用符，取出地址中的值
+	return 0;
+ }
+
+int main() {
+	int a = 10;
+	int* pa = &a;
+	*pa = 11;
+	cout << *pa << endl;	//11
+	cout << a << endl;		//11	
+	return 0;
+ }
+```
+
+## sort()基本使用方法
+#### sort()的定义
+sort()函数可以对给定区间所有元素进行排序。
+它有三个参数sort(begin, end, cmp)，
+begin为指向待sort()的数组的第一个元素的指针，
+end为指向待sort()的数组的最后一个元素的下一个位置的指针，
+cmp参数为排序准则，cmp参数可以不写，默认从小到大进行排序。
+
+返回值：无
+时间复杂度：O(nlogn)
+排序范围：[first,last)
+```c
+int main() {
+	int a[10] = { 10,9,8,7,6,5,4,3,2,1 };
+	sort(a + 0, a + 2 + 1,cmp);		//排序前三位
+	for(int i = 0;i < 10;i++)
+	cout << a[i] << endl;	
+	return 0;
+}
+```
+#### bool控制cmp自定义排序
+```c
+bool cmp(int e1, int e2) {	//int 对应 int a[10]
+	return e1 > e2;	//降序为true不交换，升序为false交换
+}
+```
+#### 结构体排序
+sort()也可以对结构体进行排序，
+比如我们定义一个结构体含有学生的姓名和成绩的结构体Student，
+然后我们按照每个学生的成绩从高到底进行排序。首先我们将结构体定义为：
+```c
+struct Student {
+	string name;
+	int score;
+};
+```
+根据排序要求我们可以将排序准则函数写为：
+```c
+bool cmp_score(Student x, Student y) {
+	return x.score > y.score;
+}
+```
+完整代码：
+```c
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+
+struct Student {
+	string name;
+	int score;
+	Student() {}
+	Student(string n, int s) :name(n), score(s) {}
+};
+
+bool cmp_score(Student x, Student y) {
+	return x.score > y.score;
+}
+
+int main() {
+	Student stu[3];
+	string n;
+	int s;
+	for (int i = 0; i < 3; i++) {
+		cin >> n >> s;
+		stu[i] = Student(n, s);
+	}
+
+	sort(stu, stu + 3, cmp_score);
+
+	for (int i = 0; i < 3; i++) {
+		cout << stu[i].name << " " << stu[i].score << endl;
+	}
+
+	return 0;
+}
+```
+### 技巧性
+bool只有0为假，其他都为真
+
+cin, cout:数据达到1e6或1e7后会变慢，改为scanf，printf 
+
+#define int long long
+加上这一行有时候程序过不了，则
+#define ll long long
+
+开数组：
+const int N = 1e6 + 10;
+int a[N];
 
 
+
+
+#### 例题：
+#B3827[NICA #2] 高考组题
+
+##题目描述
+
+高考是能决定每个考生命运的考试，因此作为组卷人的 Aya 将高考组卷视为重中之重。现在 Aya 有 $n$ 个备选的高考题。
+
+对于每一道可能选入试卷的高考题，其有 $k$ 个指标来评判它各个方面的维度，例如难度、新颖度、与现实生活的结合性等。每个指标均为一个正整数。
+
+Aya 认为，一个题被放入高考卷的必要性，是这些指标的平均值。他认为，必要性前二高的试题必须要被放进高考试卷。若有多个必要性前二大的试题则选择较早出现的那个。请告诉 Aya 哪个题目是必须要放进高考试卷的。
+
+##输入格式
+
+第一行输入两个正整数 $n,k$，含义如题所述；
+
+第二行开始，往下 $n$ 行，每行输入 $k$ 个正整数，以空格隔开，第 $i$ 行表示第 $i-1$ 道题的各个指标是多少。
+
+##输出格式
+
+输出两行，表示必要性前两大的试题是哪两个题。优先输出必要性最高的；若有多个题目必要性相同，则优先输出较早出现的。
+
+##样例 #1
+
+###样例输入 #1
+
+```
+3 2
+10 20
+15 25
+20 30
+```
+
+###样例输出 #1
+
+```
+3
+2
+```
+
+##样例 #2
+
+###样例输入 #2
+
+```
+3 2
+10 20
+5 25
+1 2
+```
+
+###样例输出 #2
+
+```
+1
+2
+```
+
+##提示
+
+数据保证，$2 \leq n \leq 100$，$1 \leq k \leq 10$，$1 \leq$ 一道试题的各个指标 $\leq 100$。
+
+
+```c
+#include<bits/stdc++.h>
+using namespace std;
+struct Student {
+	int X;
+	double Num;
+};
+
+typedef Student student;
+student a[100];
+bool cmp(student e1, student e2);
+
+int main() {
+	int n, k;
+	while (cin >> n >> k) {
+		for (int i = 0; i < n; i++) {
+			int sum = 0;
+			for (int j = 0; j < k; j++) {
+				int tmp;
+				cin >> tmp;
+				sum += tmp;
+			}
+			a[i].X = i + 1;
+			a[i].Num = sum/k;
+		}
+		sort(a, a + n, cmp);
+		cout << a[0].X << endl << a[1].X << endl;
+
+	}
+
+}
+
+bool cmp(student e1, student e2) {	
+	if(e1.Num!=e2.Num)
+	return e1.Num > e2.Num;
+	else return e1.X < e2.X;
+}
+```
+*/
 
