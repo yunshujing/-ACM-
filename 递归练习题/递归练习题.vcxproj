@@ -24,6 +24,7 @@
     <ProjectGuid>{ee026fe1-d43d-4502-92c0-5125ec51e7e8}</ProjectGuid>
     <RootNamespace>递归练习题</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>3#递归练习题</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

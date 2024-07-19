@@ -483,3 +483,203 @@ bool cmp(student e1, student e2) {
 ```
 */
 
+//Day5
+/*
+## STL
+STL是C语言标准中的重要组成部分
+以模板类和函数的形式提供数据结构和算法优化
+STL大致分为3类，容器，算法，迭代器
+
+STL的主要组成部分
+容器：用于存储数据集合的通用类模板，包括序列容器（如vector、list、deque）、关联容器（如set、multiset、map、multimap）和容器适配器（如stack、queue、priority_queue）。
+算法：用于对容器中的元素进行各种操作的通用函数模板，例如排序、搜索、复制等。
+迭代器：实现STL算法与容器交互所需的通用指针
+
+
+### vector动态数组
+在 C++ 中，vector 是一个模板类，用于存储一个动态数组, 运行时根据需要改变数组大小
+	`vector <数据类型> 变量名；`
+e.g.vector <int> a;       默认初始化，a为空
+e.g.vector <int> b(a);	  用a定义b
+e.g.vector <int> a(100);  a有100个值为0的元素
+开辟空间后可以直接访问a[0]...a[99]，没有用（）开辟则无法访问，会溢出
+
+#### 多维数组
+定义多维数组，例如定义一个二维数组 : `vector<int> a[MAXN];`
+它的第一维大小是固定的MAXN，第二维是动态的。
+用这个方式，可以实现图的邻接表存储。
+
+#### vector语法
+| 功能 | 例子 | 说明|
+|-------- | --------- | -------- |
+|赋值 | a.push back(100); | 在尾部添加元素|
+|元素个数 | int size = a.size(); | 元素个数|
+|是否为空 | bool isEmpty = a.empty(); | 是否为空|
+|打印 | cout << a[0] << endl; | 打印第一个元素|
+|中间插入 | a.insert(a.begin() + i, k); | 在第i个元素前面插入k|
+|尾部插入 | a.push_back(8); | 尾部插入为8的元素|
+|尾部插入 | a.insert(a.end(), 10, 5); | 尾部插入10个值为5的元素|
+|删除尾部 | a.pop_back(); | 删除尾部元素|
+|删除区间 | a.erase(a.begin() + i, a.begin() + j); | 删除区间[i, j - 1]的元素|
+|删除元素 | a.erase(a.begin() + 2); | 删除第3个元素|
+|调整大小 | a.resize(n); | 数组大小变为n|
+|清空 | a.clear(); |
+|翻转 | reverse(a.begin(), a.end()); | 用函数reverse翻转数组 |
+|排序 | sort(a.begin(), a.end()); | 用函数sort排序，从小到大|
+
+#### 样例代码
+```c
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	vector<int> a;
+	vector <int> a(100);  //a设置100个值为0的元素
+	//开辟空间后可以直接访问a[0]...a[99]，没有用（）开辟则无法访问 会溢出
+	a.push_back(8);
+	a.push_back(7);
+	cout << a.size();//元素个数
+	cout << *a.begin();//a[0],a.begin()迭代器类似于指针，要用解引用符
+	cout << *(a.end()-1);//a.end()指向最后元素的后一位
+	return 0;
+}
+```
+
+#### 迭代器&&循环遍历
+迭代器（Iterator）是一种设计模式，在编程语言中用于访问容器的元素，而不需要暴露集合的内部表现方式。
+迭代器提供了一种统一的方式来遍历不同类型的集合，使得代码更加灵活和可复用。
+使用* 操作符可以解压或展开迭代器或可迭代对象（Iterable），将其内容依次提取出来。
+```c
+	vector<int>::iterator it;
+	for(it=a.begin(); it != a.end();it++){}
+		cout << *it;	//解引用符解迭代器
+	for (auto it = a.begin(); it != a.end(); it++){}
+		cout << *it;	//解引用符解迭代器
+```
+
+#### auto语法
+
+##### auto的定义
+【auto】(自动识别类型)
+在C++中，auto 关键字是一个类型说明符，用于自动推导变量的类型。
+这意味着编译器会根据变量的初始化表达式自动确定变量的类型，从而使得代码更加简洁，
+特别是当处理复杂类型时。auto 关键字是在C++11标准中引入的，之后被广泛应用于现代C++编程中。
+
+##### auto的语法
+规则1：声明为auto（不是auto& ）的变量，忽视掉初始化表达式的顶层const。即对有const的普通类型(int 、double等)忽视const，对常量指针（顶层const）变为普通指针，对指向常量（底层const）的常量指针（顶层cosnt）变为指向常量的指针（底层const）。
+规则2：声明为auto& 的变量，保持初始化表达式的顶层const或volatile 属性。
+规则3：若希望auto推导的是顶层const，加上const，即const auto。
+[参考资料](https ://blog.csdn.net/weixin_43744293/article/details/117440727)
+```c
+	for(auto x : a){}
+		cout << x;
+```
+**[更喜欢用这个]**
+auto会拷贝一份容器内的veckor,在修改x时不会改变原容器当中的vector值，只会改变拷贝的vector。
+x为元素可直接使用
+```c
+	for (auto& x : vector){}
+```
+当需要对原数据进行同步修改时，就需要添加& ，即vector的引用。会在改变x的同时修改vector。
+```c
+for (const auto& x : vector)
+```
+**[不常用]**
+const(常类型)，不能作为左值& (引用)，不拷贝，不申请新空间，
+会对原vector修改当我们不希望拷贝原vector(拷贝需要申请新的空间)，同时不愿意随意改变原vector，
+那么我们可以使用for(constauto & x:vector)，这样我们可以很方便的在不拷贝的情况下读取vector，同时不会修改vector。一般用在只读操作。
+
+##### auto在编程时真正的用途
+1、代替冗长复杂的变量声明
+`vector<int>::iterator it = v.begin(); `直接用auto代替 `auto it = v.begin();`
+2、定义模板参数时，用于声明依赖模板参数的变量
+```
+template <typename _Tx, typename _Ty>
+void Multiply(_Tx x, _Ty y) {
+	auto v = x + y;
+	std::cout << v;
+}
+```
+
+#### 使用reverse反向排列算法
+```c
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	vector<int> v(10);
+	for (int i = 0; i < 10; i++)
+	{
+		v[i] = i;
+	}
+	reverse(v.begin(), v.end());
+	vector<int>::iterator it;
+	for (it = v.begin(); it != v.end(); it++)
+	{
+		cout << *it << "  ";
+	}
+	cout << endl;
+	return 0;
+}
+```
+
+### stack栈
+#### 栈的定义
+栈（Stack）是一种线性数据结构，其特点是只允许在一端进行插入和删除操作；
+这一端被称为栈顶（top），相对地，把另一端称为栈底（bottom）；
+这种数据结构遵循后进先出（LIFO, Last In First Out）的原则。
+
+#### 栈的语法
+| 例子 | 说明|
+|-------- | -------- |
+|stack<Type>s; | 定义栈，Type为数据类型，如int，foatchar等|
+|s.push(item); | 把item放到栈顶|
+|s.top(); | 返回栈顶的元素，但不会删除|
+|s.pop(); | 删除栈顶的元素，但不会返回|
+|s.size(); | 返回栈中元素的个数|
+|s.empty(); |检查栈是否为空，如果为空返回true.否则返回false|
+
+#### 爆栈问题
+栈需要用空间存储，存进栈的数组太大，那么总数会超过系统为栈分配的空间，就会爆栈，即栈溢出。
+解决办法有两种 : 
+(1)在程序中调大系统的栈。依赖于系统和编译器。
+(2)手工写栈。
+
+#### P1427 小鱼的数字游戏
+**题目描述**
+小鱼最近被要求参加一个数字游戏，要求它把看到的一串数字 $a_i$（长度不一定，以 $0$ 结束），记住了然后反着念出来（表示结束的数字 $0$ 就不要念出来了）。这对小鱼的那点记忆力来说实在是太难了，你也不想想小鱼的整个脑袋才多大，其中一部分还是好吃的肉！所以请你帮小鱼编程解决这个问题。
+**输入格式**
+一行内输入一串整数，以 $0$ 结束，以空格间隔。
+**输出格式**
+一行内倒着输出这一串整数，以空格间隔。
+**样例 #1**
+**样例输入 #1**
+```
+3 65 23 5 34 1 30 0
+```
+**样例输出 #1**
+```
+30 1 34 5 23 65 3
+```
+**提示**
+**数据规模与约定**
+对于 $100\ % $ 的数据，保证 $0 \leq a_i \leq 2 ^ {31} - 1$，数字个数不超过 $100$。
+```c
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	stack<int> s; 
+	int x;
+	while (cin >> x&&x!=0) {
+		s.push(x);
+	}
+	while (!s.empty())
+	{
+		cout << s.top() << " ";
+		s.pop();
+	}
+	return 0;
+}
+```
+*/

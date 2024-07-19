@@ -24,6 +24,7 @@
     <ProjectGuid>{2c1f8537-98b1-4594-9cae-3d214524901f}</ProjectGuid>
     <RootNamespace>ACM入门练习hdu</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>1#ACM入门练习-hdu</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
