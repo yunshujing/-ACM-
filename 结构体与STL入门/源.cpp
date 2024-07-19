@@ -184,6 +184,8 @@
 // 求生者 可以 ban(禁用) 掉 监管者阵营2 名角色
 #include<bits/stdc++.h>
 using namespace std;
+#define int long long
+const int N = 1e6 + 10;
 struct Student {
     int x;
     string name;
@@ -192,7 +194,7 @@ struct Student {
 };
 
 typedef Student student;
-student w[1000],h[1000],s[1000];//h监管者//s求生者
+student w[N],h[N],s[N];//h监管者//s求生者
 bool cmp(student e1, student e2);
 
 int main() {
@@ -213,14 +215,14 @@ int main() {
         }
         //分阵营
         sort(h, h + j, cmp);
-        sort(s, s + j, cmp);
+        sort(s, s + k, cmp);
         //排序
         //ban
-        for (size_t i = 2; i < j; i++)
+        for (int i = 2; i < j; i++)
         {
             cout << h[i].name << endl;
         }
-        for (size_t i = 5; i < k; i++)
+        for (int i = 5; i < k; i++)
          {
             cout << s[i].name << endl;
          }
