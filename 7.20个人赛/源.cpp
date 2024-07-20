@@ -48,22 +48,21 @@
 //B
 //#include<bits/stdc++.h>
 //using namespace std;
-//struct Student {
+//struct student {
 //    int x;
-//    char name[12];
+//    string name;
 //    int cj;
 //    int zb;
 //};
-//typedef Student student;
-//vector<student> a;
+////typedef Student student;
+//vector<student> a(1000);
 ////student a[1000];
 //bool cmp(student e1, student e2);
 //int main() {
 //    int n; 
 //    scanf("%d", &n);
 //        for (int i = 0; i < n; i++) {
-//            student a;
-//            scanf("%s %d %d", &a.name, &a.cj, &a.zb);
+//            cin >> a.name >> a.cj >> a.zb;
 //            // a[i].sum = a[i].yuwen + a[i].shuxue + a[i].yinyu;
 //        }
 //        double sum = 0;int  cnt = 0;
@@ -88,6 +87,7 @@
 //bool cmp(student e1, student e2) {
 //    return  e1.cj > e2.cj;
 //}
+//
 //#define _CRT_SECURE_NO_WARNINGS 
 //#include<bits/stdc++.h>
 //using namespace std;
