@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4#结构体与STL入门", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "5#STL练习-vector", "STL练习-vector\STL练习-vector.vcxproj", "{45829AE8-6C52-4818-BFE7-DB69CD144A8C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "6#7.20个人赛", "7.20个人赛\7.20个人赛.vcxproj", "{D0B4D615-6CFC-4E3B-88C6-023AFDFBC1EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{45829AE8-6C52-4818-BFE7-DB69CD144A8C}.Release|x64.Build.0 = Release|x64
 		{45829AE8-6C52-4818-BFE7-DB69CD144A8C}.Release|x86.ActiveCfg = Release|Win32
 		{45829AE8-6C52-4818-BFE7-DB69CD144A8C}.Release|x86.Build.0 = Release|Win32
+		{D0B4D615-6CFC-4E3B-88C6-023AFDFBC1EE}.Debug|x64.ActiveCfg = Debug|x64
+		{D0B4D615-6CFC-4E3B-88C6-023AFDFBC1EE}.Debug|x64.Build.0 = Debug|x64
+		{D0B4D615-6CFC-4E3B-88C6-023AFDFBC1EE}.Debug|x86.ActiveCfg = Debug|Win32
+		{D0B4D615-6CFC-4E3B-88C6-023AFDFBC1EE}.Debug|x86.Build.0 = Debug|Win32
+		{D0B4D615-6CFC-4E3B-88C6-023AFDFBC1EE}.Release|x64.ActiveCfg = Release|x64
+		{D0B4D615-6CFC-4E3B-88C6-023AFDFBC1EE}.Release|x64.Build.0 = Release|x64
+		{D0B4D615-6CFC-4E3B-88C6-023AFDFBC1EE}.Release|x86.ActiveCfg = Release|Win32
+		{D0B4D615-6CFC-4E3B-88C6-023AFDFBC1EE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
