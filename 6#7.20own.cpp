@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-//½âÎö:
+//è§£æ:
 //http://4iz.cn/0nbu
 
 //#include<bits/stdc++.h>
@@ -11,7 +11,7 @@
 //for (int i = 0; i < n; i++){}
 //scanf("%d", &n);
 //printf("%d", n);
-// ½á¹¹Ìå
+// ç»“æ„ä½“
 //struct Student {
 //    int x;
 //    string name;
@@ -21,28 +21,28 @@
 
 
 //A
-//#include<bits/stdc++.h>
-//using namespace std;
-//#define ll long long
-//int main() {
-//	int n;
-//	string m;
-//	scanf("%d", &n); getchar();
-//	for (int i = 0; i < n; i++)
-//	{
-//		cin>>m;
-//		int x = m.length();
-//		if (m[x - 3] == 'm' && m[x - 2] == 'a' && m[x - 1] == '?') {
-//			printf("En!");
-//		}
-//		else
-//		{
-//			cout<<m;
-//		}
-//		printf("\n");
-//	}
-//	return 0;
-//}
+// #include<bits/stdc++.h>
+// using namespace std;
+// #define ll long long
+// int main() {
+// 	int n;
+// 	string m;
+// 	scanf("%d", &n); getchar();
+// 	for (int i = 0; i < n; i++)
+// 	{
+// 		cin>>m;
+// 		int x = m.length();
+// 		if (m[x - 3] == 'm' && m[x - 2] == 'a' && m[x - 1] == '?') {
+// 			printf("En!");
+// 		}
+// 		else
+// 		{
+// 			cout<<m;
+// 		}
+// 		printf("\n");
+// 	}
+// 	return 0;
+// }
 
 
 //B
@@ -102,7 +102,7 @@
 //    return  e1.cj > e2.cj;
 //}
 //int main() {
-//    int N; scanf("%d", &N); int sum = 0;//Î´×Ü³É¼¨
+//    int N; scanf("%d", &N); int sum = 0;//æœªæ€»æˆç»©
 //    for (int i = 0; i < N; i++) {
 //        student x;
 //        scanf("%s %d %d", &x.name, &x.cj, &x.zb);
@@ -241,13 +241,13 @@
 //	}
 //	return 0;
 //}
-////º¯Êı¶¨Òå£¬ËØÊıÅĞ¶Ï
+////å‡½æ•°å®šä¹‰ï¼Œç´ æ•°åˆ¤æ–­
 //bool isPrime(ll x) {
 //	if (x < 2)
 //	{
 //		return false;
 //	}
-//	//ÊÔ³ı·¨
+//	//è¯•é™¤æ³•
 //	for (int i = 2; i <= x / i; i++)
 //	{
 //		if (x % i == 0) {

@@ -82,7 +82,7 @@
 //	{
 //		return false;
 //	}
-//	//ÊÔ³ı·¨
+//	//è¯•é™¤æ³•
 //	for (int i = 2; i <= x / i; i++)
 //	{
 //		if (x % i == 0) {
@@ -118,7 +118,7 @@
 //		{
 //			return false;
 //		}
-//		//ÊÔ³ı·¨
+//		//è¯•é™¤æ³•
 //		for (int i = 2; i <= x / i; i++)
 //		{
 //			if (x % i == 0) {
@@ -163,9 +163,9 @@
 //
 //bool isPrime(int x) {
 //	if (x < 2)return false;
-//	if (x == 2 || x == 3) return true; // 2 ºÍ 3 ÊÇÖÊÊı
-//	if (x % 2 == 0) return false;       // ÅÅ³ıÅ¼Êı  
-//	for (int i = 3; i*i <= x ; i+=2){   //ÊÔ³ı·¨
+//	if (x == 2 || x == 3) return true; // 2 å’Œ 3 æ˜¯è´¨æ•°
+//	if (x % 2 == 0) return false;       // æ’é™¤å¶æ•°  
+//	for (int i = 3; i*i <= x ; i+=2){   //è¯•é™¤æ³•
 //		if (x % i == 0) return false;
 //	}
 //	return true;
@@ -185,20 +185,20 @@
 
 
 /*
-//Ìæ»»ÃÜÂë
-//ÖÃ»»ÃÜÂë
+//æ›¿æ¢å¯†ç 
+//ç½®æ¢å¯†ç 
 #include<bits/stdc++.h>
 using namespace std;
 
 int main() {
 	string x, y; 
-	while (cin >> x >> y) {                 //ÊäÈëÁ÷
+	while (cin >> x >> y) {                 //è¾“å…¥æµ
 		int length = y.length();
 		int i = 0, flag=1;
 		int a[26] = { 0 }, b[26] = { 0 };
-		//²»ÖªµÀÌæ»»×Ö·û£¬Ôò½«×Ö·û×ª»¯ÎªÊı×Ö´æ´¢µ½Êı×éÖĞ£¬Ö»Òª±È½ÏÊı×é¼´¿É
+		//ä¸çŸ¥é“æ›¿æ¢å­—ç¬¦ï¼Œåˆ™å°†å­—ç¬¦è½¬åŒ–ä¸ºæ•°å­—å­˜å‚¨åˆ°æ•°ç»„ä¸­ï¼Œåªè¦æ¯”è¾ƒæ•°ç»„å³å¯
 		for (int i = 0; i < length; i++) {
-			a[int(x[i] - 'A')]++;           //×Ö·û´®ÎªÌØÊâÊı×é£¬¿ÉÖ±½Ó[]È¡ÓÃ
+			a[int(x[i] - 'A')]++;           //å­—ç¬¦ä¸²ä¸ºç‰¹æ®Šæ•°ç»„ï¼Œå¯ç›´æ¥[]å–ç”¨
 			b[int(y[i] - 'A')]++;
 		}
 		for (int i = 0; i < 26; i++) {
@@ -220,7 +220,7 @@ int main() {
 			if (a[i] != b[i]) { flag = 0; break; }
 		}
 		if (flag==1) {
-			cout << "YES" << endl;//Êä³öÁ÷
+			cout << "YES" << endl;//è¾“å‡ºæµ
 		}
 		else cout << "NO" << endl;
 	}

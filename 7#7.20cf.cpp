@@ -9,7 +9,7 @@
 //for (int i = 0; i < n; i++){}
 //scanf("%d", &n);
 //printf("%d", n);
-// ½αΉΉΜε
+// η»“ζ„δ½“
 //struct Student {
 //    int x;
 //    string name;

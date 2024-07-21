@@ -93,7 +93,7 @@
 //typedef ZB zb;
 //zb a[1000], b[1000], c[1000], fj[1000];
 //int jl(int, int, int, int);
-////*×¢Òâ£º ²»ÒªÓÃdoubleÀàÐÍ £¬ÒòÎªdouble ÔÙËã¾àÀëµÄÊ±ºò»áÔì³É¾«¶È²»×¼È·£¬Ëã²»³öÏàµÈ£¬ËùÒÔÔÚËã¾àÀëµÄÊ±ºò ²»ÓÃ¿ª¸ùºÅ£¬Ö±½Ó½øÐÐ±È½Ï*
+////*æ³¨æ„ï¼š ä¸è¦ç”¨doubleç±»åž‹ ï¼Œå› ä¸ºdouble å†ç®—è·ç¦»çš„æ—¶å€™ä¼šé€ æˆç²¾åº¦ä¸å‡†ç¡®ï¼Œç®—ä¸å‡ºç›¸ç­‰ï¼Œæ‰€ä»¥åœ¨ç®—è·ç¦»çš„æ—¶å€™ ä¸ç”¨å¼€æ ¹å·ï¼Œç›´æŽ¥è¿›è¡Œæ¯”è¾ƒ*
 //int cnt = 0;
 //
 //int main() {
@@ -107,24 +107,24 @@
 //        }
 //        for (int i = 0; i < t; i++) {//jgz
 //            cin >> c[i].x >> c[i].y;
-//        }//¶ÁÈë
+//        }//è¯»å…¥
 //
-//        for (int i = 0; i < t; i++) {//¼à¹ÜÕß
+//        for (int i = 0; i < t; i++) {//ç›‘ç®¡è€…
 //            int max = -1; int m = -1;
-//            for (int j = 0; j < n; j++) {//ÃÜÂë»ú
+//            for (int j = 0; j < n; j++) {//å¯†ç æœº
 //                int tmp = 0;
 //                tmp = jl(c[i].x, c[i].y, a[j].x, a[j].y);
 //                if (tmp > max ) {
 //                    max = tmp;
-//                    m = j;//¾àÀë×î´ó×ø±ê
+//                    m = j;//è·ç¦»æœ€å¤§åæ ‡
 //                }
 //            }
-//            for (int i = 0; i < k; i++) {//ÇóÉúÕß³öÉú»ú
+//            for (int i = 0; i < k; i++) {//æ±‚ç”Ÿè€…å‡ºç”Ÿæœº
 //                if (b[i].x == a[m].x && b[i].y == a[m].y) {
 //                    cnt++;
 //                    break;
 //                }
-//            }//×¢ÒâÕâÀï²»ÄÜµ¥¶ÀÌá³öÀ´¼ÆËã£¬·ñÔòÖØ¸´Ö»»á¼ÆËãÒ»´Î£¬Òª·Å½øÃ¿¸ö¼à¹ÜÕß¶¼±éÀúÒ»±é
+//            }//æ³¨æ„è¿™é‡Œä¸èƒ½å•ç‹¬æå‡ºæ¥è®¡ç®—ï¼Œå¦åˆ™é‡å¤åªä¼šè®¡ç®—ä¸€æ¬¡ï¼Œè¦æ”¾è¿›æ¯ä¸ªç›‘ç®¡è€…éƒ½éåŽ†ä¸€é
 //        }     
 //        cout << cnt << endl;   
 //    return 0;
@@ -140,8 +140,8 @@
 //using namespace std;
 //const int N = 1e4 + 10;
 //struct Sudent {
-//    int n;//Ñ§ºÅ
-//    int s[N];//Ã¿Ê×¸èµÄ¿ìÀÖ¶È
+//    int n;//å­¦å·
+//    int s[N];//æ¯é¦–æ­Œçš„å¿«ä¹åº¦
 //    int sum;
 //};
 //typedef Sudent student;
@@ -149,24 +149,24 @@
 //
 //void kuaile(student,student,int,int);
 //
-////µÚÒ»ÐÐ¹²ËÄ¸öÕûÊý n, m, a, b£¬·Ö±ð´ú±í´ýÑ¡µÄ¸èµÄÊýÁ¿£¬ÐèÒªÑ¡³öµÄ¸èµÄÊýÁ¿£¬°àÉÏµÄÈËÊý£¬ËýµÄÑ§ºÅ¡£
+////ç¬¬ä¸€è¡Œå…±å››ä¸ªæ•´æ•° n, m, a, bï¼Œåˆ†åˆ«ä»£è¡¨å¾…é€‰çš„æ­Œçš„æ•°é‡ï¼Œéœ€è¦é€‰å‡ºçš„æ­Œçš„æ•°é‡ï¼Œç­ä¸Šçš„äººæ•°ï¼Œå¥¹çš„å­¦å·ã€‚
 //int main() {
 //    int n,m,a,b;
 //    while (cin >> n >> m >> a >> b) {
-//        //µ¼ÈëÊý¾Ý
+//        //å¯¼å…¥æ•°æ®
 //        for (int i = 0; i < a; i++) {
 //            k[i].n = i + 1;
 //            for (int j = 0; j < n; j++) {
 //                cin >> k[i].s[j];
 //            }
 //        }
-//        //¼ÆËãÃ¿Ê×¸èµÄ¿ìÀÖ¶È
+//        //è®¡ç®—æ¯é¦–æ­Œçš„å¿«ä¹åº¦
 //        void kuaile(k[a],l[a],a,n);
-//        //¿ìÀÖ¶È´Ó´óµ½Ð¡ÅÅºÃÐò
+//        //å¿«ä¹åº¦ä»Žå¤§åˆ°å°æŽ’å¥½åº
 //        sort()
-//        //Ñ°ÕÒ×îÏ²»¶µÄ¸è
+//        //å¯»æ‰¾æœ€å–œæ¬¢çš„æ­Œ
 //
-//        //Ìá³öÇ°mÊ×¸è
+//        //æå‡ºå‰mé¦–æ­Œ
 //    }
 //    return 0;
 //}
@@ -180,8 +180,8 @@
 
 
 //E
-//¼à¹ÜÕß ¿ÉÒÔ ban(½ûÓÃ) µô ÇóÉúÕßÕóÓª 5 Ãû½ÇÉ«£¬
-// ÇóÉúÕß ¿ÉÒÔ ban(½ûÓÃ) µô ¼à¹ÜÕßÕóÓª2 Ãû½ÇÉ«
+//ç›‘ç®¡è€… å¯ä»¥ ban(ç¦ç”¨) æŽ‰ æ±‚ç”Ÿè€…é˜µè¥ 5 åè§’è‰²ï¼Œ
+// æ±‚ç”Ÿè€… å¯ä»¥ ban(ç¦ç”¨) æŽ‰ ç›‘ç®¡è€…é˜µè¥2 åè§’è‰²
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -194,7 +194,7 @@ struct Student {
 };
 
 typedef Student student;
-student w[N],h[N],s[N];//h¼à¹ÜÕß//sÇóÉúÕß
+student w[N],h[N],s[N];//hç›‘ç®¡è€…//sæ±‚ç”Ÿè€…
 bool cmp(student e1, student e2);
 
 int main() {
@@ -202,7 +202,7 @@ int main() {
     cin >> n >> m;
         for (int i = 0; i < n+m; i++) {
             cin >> w[i].name >> w[i].zy >> w[i].sld ;
-        }//È«²¿µ¼Èës
+        }//å…¨éƒ¨å¯¼å…¥s
         for (int i = 0; i < n + m; i++) {
             if (w[i].zy == 'H') {
                 h[j] = w[i];
@@ -213,10 +213,10 @@ int main() {
                 k++;
             }
         }
-        //·ÖÕóÓª
+        //åˆ†é˜µè¥
         sort(h, h + j, cmp);
         sort(s, s + k, cmp);
-        //ÅÅÐò
+        //æŽ’åº
         //ban
         for (int i = 2; i < j; i++)
         {
@@ -226,8 +226,8 @@ int main() {
          {
             cout << s[i].name << endl;
          }
-        //Êä³ö¼à¹ÜÕßÕóÓªÑ¡Ôñ½ÇÉ«µÄ½ÇÉ«Ãû
-        //ÇóÉúÕßÕóÓªÑ¡Ôñ½ÇÉ«µÄ½ÇÉ«Ãû£¬°´ÕÕÊìÁ·¶È´Ó¸ßµ½µÍÅÅÁÐ¡£
+        //è¾“å‡ºç›‘ç®¡è€…é˜µè¥é€‰æ‹©è§’è‰²çš„è§’è‰²å
+        //æ±‚ç”Ÿè€…é˜µè¥é€‰æ‹©è§’è‰²çš„è§’è‰²åï¼ŒæŒ‰ç…§ç†Ÿç»ƒåº¦ä»Žé«˜åˆ°ä½ŽæŽ’åˆ—ã€‚
     return 0;
 }
 

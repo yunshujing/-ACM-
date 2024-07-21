@@ -9,21 +9,21 @@ int main() {
 	int n, m; 
 	while (cin >> n >> m) {
 		a.clear();
-		a.resize(2 * n);//ÖØ¶¨Òå´óĞ¡
+		a.resize(2 * n);//é‡å®šä¹‰å¤§å°
 
-		iota(a.begin(), a.end(), 0);//±éÀúÖØ¶¨Òå0,1,2,3,4....
+		iota(a.begin(), a.end(), 0);//éå†é‡å®šä¹‰0,1,2,3,4....
 		//for (int i = 0; i < n * 2; i++) {
 		//	a.push_back(1);
-		//}//ÊäÈë
+		//}//è¾“å…¥
 		int sum = a.size(), x = 0;
 
-		for (int i = 0; i < n; i++) {//¶à´ÎÉ¾³ı»µÈË
-			sum = a.size();//³¤¶È
+		for (int i = 0; i < n; i++) {//å¤šæ¬¡åˆ é™¤åäºº
+			sum = a.size();//é•¿åº¦
 			int x = (x + m - 1) % sum;
-			a.erase(a.begin() + x);//É¾³ı»µÈË
+			a.erase(a.begin() + x);//åˆ é™¤åäºº
 		}
 		int cnt = 0;//
-		sum = a.size();//Ê£ÓàºÃÈË¸öÊı
+		sum = a.size();//å‰©ä½™å¥½äººä¸ªæ•°
 		for (int i = 0; i < n * 2; i++) {
 			if (cnt < sum && a[cnt] == i) { cout << "G"; cnt++; }
 			else { cout << "B"; }
@@ -40,24 +40,24 @@ int main() {
 //int main() {
 //	int x; char y;
 //	cin >> x; 
-//  getchar();//¶ÁÈ¡»Ø³µ
+//  getchar();//è¯»å–å›è½¦
 //	stack <char> a;
 //	int flag = 1;
 //	while(x>=1)
 //	{	
 //		while(flag==1)
 //		{
-//			while (scanf("%c", &y) && y != ' ') {//cin»áÌø¹ı¿Õ¸ñ
+//			while (scanf("%c", &y) && y != ' ') {//cinä¼šè·³è¿‡ç©ºæ ¼
 //				if (y == '\n') {
 //					flag = 0; break;
 //				}
 //				a.push(y);
-//			}//ÊäÈë
-//			//y=' 'ÔËĞĞÏÂÒ»ĞĞ
+//			}//è¾“å…¥
+//			//y=' 'è¿è¡Œä¸‹ä¸€è¡Œ
 //			while (!a.empty()) {
 //				cout << a.top();
 //				a.pop();
-//			}//Êä³ö
+//			}//è¾“å‡º
 //			if (flag=1) 
 //				cout << ' ';
 //		}
@@ -74,8 +74,8 @@ int main() {
 //using namespace std;
 //float sum(float k1, float k2, char op);
 //int main() {
-//	stack<float> num;//Êı×ÖÕ»
-//	stack<char> op;//·ûºÅÕ»
+//	stack<float> num;//æ•°å­—æ ˆ
+//	stack<char> op;//ç¬¦å·æ ˆ
 //	while (1) {
 //		float n1;
 //		scanf("%f",&n1);
@@ -90,10 +90,10 @@ int main() {
 //				n1 = num.top();
 //				num.pop();
 //				n1 = sum(n1, n2, fh);
-//				num.push(n1);//³Ë³ı°ÑÕ»¶¥Ìá³öËãÍêÔÙÈëÕ»
+//				num.push(n1);//ä¹˜é™¤æŠŠæ ˆé¡¶æå‡ºç®—å®Œå†å…¥æ ˆ
 //				scanf("%c", &fh);
 //				if (fh == '+' || fh == '-') {
-//					break; // Èç¹ûÊÇ¼Ó¼õ»òµÈÓÚºÅ£¬ÔòÍË³ö³Ë³ıÑ­»·
+//					break; // å¦‚æœæ˜¯åŠ å‡æˆ–ç­‰äºå·ï¼Œåˆ™é€€å‡ºä¹˜é™¤å¾ªç¯
 //				}
 //			}
 //		}
@@ -101,10 +101,10 @@ int main() {
 //			op.push(fh);
 //		}
 //		else if (fh == '\n') {
-//			break; // ÍË³öÑ­»·Ìõ¼ş
+//			break; // é€€å‡ºå¾ªç¯æ¡ä»¶
 //		}
 //	}
-//	//³Ë³ıÒÑ¾­ËãÍê£¬Ö»ÒªËã¼Ó¼õ
+//	//ä¹˜é™¤å·²ç»ç®—å®Œï¼Œåªè¦ç®—åŠ å‡
 //	while (!op.empty())
 //	{
 //		float m1, m2; char fh2;
@@ -115,13 +115,13 @@ int main() {
 //		fh2 = op.top();
 //		op.pop();
 //		m1 = sum(m1, m2, fh2);
-//		num.push(m1);//¼Ó¼õ
+//		num.push(m1);//åŠ å‡
 //	}
 //	cout <<fixed << setprecision(2)<< num.top() << endl;
 //	return 0;
 //}
 //
-//float sum(float k1, float k2, char op) {//¼Ó¼õ³Ë³ı
+//float sum(float k1, float k2, char op) {//åŠ å‡ä¹˜é™¤
 //	if (op == '*') {
 //		return k1 * k2;
 //	}
@@ -150,15 +150,15 @@ int main() {
 //		char tmp;
 //		int flag = 0;
 //		while (~scanf("%c", &tmp) && tmp != '\n') {
-//			if (tmp == ' ') {//Ïû»¯¿Õ¸ñ
+//			if (tmp == ' ') {//æ¶ˆåŒ–ç©ºæ ¼
 //				scanf("%c", &tmp);
 //			}
-//			//´¦ÀíÔËËã·ûºÅ
+//			//å¤„ç†è¿ç®—ç¬¦å·
 //			symbol.push(tmp);
 //			if (charLevel(tmp) >= 3) {
 //				flag = charLevel(tmp);
 //			}
-//			scanf("%c", &tmp);//Ïû»¯·ûºÅºóÒ»¸öµÄ¿Õ¸ñ
+//			scanf("%c", &tmp);//æ¶ˆåŒ–ç¬¦å·åä¸€ä¸ªçš„ç©ºæ ¼
 //			double TMP; scanf("%lf", &TMP);
 //			//
 //			if (flag == 4) {// *
@@ -179,7 +179,7 @@ int main() {
 //				number.push(TMP);
 //			}
 //		}
-//		//ÍË³ö
+//		//é€€å‡º
 //		if (x1 == 0 && number.size() == 1) {
 //			break;
 //		}
@@ -239,7 +239,7 @@ int main() {
 //int main() {
 //	string y;
 //	cin >> y;
-//	int len = y.length();//Çó³¤¶Èc++
+//	int len = y.length();//æ±‚é•¿åº¦c++
 //	for (int i = 0; i < len; i++) {
 //		if (y[i] == a[x]) {
 //			x++;
@@ -277,7 +277,7 @@ int main() {
 //				}
 //			}
 //		}
-//		bool flag = false;		//ÖØ¶¨ÒåÒªÔÚÏÂÃæ,²»È»²»ÖØÖÃ
+//		bool flag = false;		//é‡å®šä¹‰è¦åœ¨ä¸‹é¢,ä¸ç„¶ä¸é‡ç½®
 //		if (x == 3)flag = true;
 //		if (flag)printf("YES\n");
 //		else printf("NO\n");
