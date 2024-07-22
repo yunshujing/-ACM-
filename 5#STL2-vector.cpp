@@ -1,37 +1,37 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 //A
-#include<bits/stdc++.h>
-#include<limits.h>
-using namespace std;
-int main() {
-	vector <int> a;
-	int n, m; 
-	while (cin >> n >> m) {
-		a.clear();
-		a.resize(2 * n);//重定义大小
+// #include<bits/stdc++.h>
+// #include<limits.h>
+// using namespace std;
+// int main() {
+// 	vector <int> a;
+// 	int n, m; 
+// 	while (cin >> n >> m) {
+// 		a.clear();
+// 		a.resize(2 * n);//重定义大小
 
-		iota(a.begin(), a.end(), 0);//遍历重定义0,1,2,3,4....
-		//for (int i = 0; i < n * 2; i++) {
-		//	a.push_back(1);
-		//}//输入
-		int sum = a.size(), x = 0;
+// 		iota(a.begin(), a.end(), 0);//遍历重定义0,1,2,3,4....
+// 		//for (int i = 0; i < n * 2; i++) {
+// 		//	a.push_back(1);
+// 		//}//输入
+// 		int sum = a.size(), x = 0;
 
-		for (int i = 0; i < n; i++) {//多次删除坏人
-			sum = a.size();//长度
-			int x = (x + m - 1) % sum;
-			a.erase(a.begin() + x);//删除坏人
-		}
-		int cnt = 0;//
-		sum = a.size();//剩余好人个数
-		for (int i = 0; i < n * 2; i++) {
-			if (cnt < sum && a[cnt] == i) { cout << "G"; cnt++; }
-			else { cout << "B"; }
-		}
-		cout << endl;
-	}
-	return 0;
-}
+// 		for (int i = 0; i < n; i++) {//多次删除坏人
+// 			sum = a.size();//长度
+// 			int x = (x + m - 1) % sum;
+// 			a.erase(a.begin() + x);//删除坏人
+// 		}
+// 		int cnt = 0;//
+// 		sum = a.size();//剩余好人个数
+// 		for (int i = 0; i < n * 2; i++) {
+// 			if (cnt < sum && a[cnt] == i) { cout << "G"; cnt++; }
+// 			else { cout << "B"; }
+// 		}
+// 		cout << endl;
+// 	}
+// 	return 0;
+// }
 
 
 //B

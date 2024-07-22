@@ -686,3 +686,222 @@ int main() {
 
 
 //Day8
+/*
+## queue队列
+### queue的定义
+队列`Queue`是一种常见的数据结构，其主要特点是`先进先出`（FIFO：First In First Out）。
+在队列中，数据的插入和删除操作分别在表的不同端进行。具体来说，向队列中添加新元素的一端称为“队尾”`rear`，而从队列中移除元素的一端称为“队头”`front`.
+队列和栈的区别:
+栈只能知道最后插进去的元素,队列可以知道最先和最后插进去的元素;栈是`后进先出`,队列是`先进后出`
+
+### queue的语法
+| 例子 | 说明|
+|-------- | -------- |
+|q.front();|返回队首元素|
+|q.back();|返回队尾元素|
+|q.push();|在队尾插入元素|
+|q.pop();|弹出队首元素|
+|q.empty;|队列是否为空|
+|q.size();|返回队列中的元素的数量|
+
+例题
+[P1996 约瑟夫问题](https://www.luogu.com.cn/problem/P1996)
+```c
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int n,m;int tmp;
+	cin>>n>>m;
+	queue <int> q;
+	for (int i = 1; i <= n; i++)
+	{
+		q.push(i);
+	}
+	while (!q.empty())
+	{
+		tmp++;
+		if(tmp%m!=0){
+			q.push(q.front());
+			q.pop();
+		}
+		else{
+			cout<<q.front()<<" ";
+			q.pop();
+		}
+	}
+	return 0;
+}
+```
+## 堆/优先队列(priority_queue)
+
+### 堆的定义
+堆是一种特殊的数据结构，通常可以被看作是一棵完全二叉树的数组对象。其主要特性包括：
+**完全二叉树**：除最后一层外，每一层上的节点数均达到最大值；在最后一层上只缺少右边的若干节点。
+**值的性质**：对于大顶堆，每个父节点的值都大于或等于其子节点的值；对于小顶堆，每个父节点的值都小于或等于其子节点的值。
+**高效性**：堆是实现优先队列的一种非常高效的方法，能够快速找到包含最大值或最小值的节点。
+
+### 优先队列的定义
+优先队列`priority_queue`是一种特殊的队列，其中元素被赋予优先级，当访问队列元素时，具有最高优先级的元素最先删除。
+优先队列与普通队列最大的不同点在于它根据元素的优先级进行排序和处理。
+具体来说：
+**优先级**：每个元素都有一个优先级，优先级高的元素会先于优先级低的元素被访问或删除。
+**操作**：支持查找最高优先级元素、删除最高优先级元素和插入指定优先级的新元素等操作。
+**实现基础**：优先队列通常基于堆来实现，因此其性能也依赖于堆的性质和实现方式。
+
+### 优先队列的语法
+| 例子 | 说明|
+|-------- | -------- |
+|pq.push(int x);|向优先队列中插入一个整数|
+|pq.pop();|删除并返回优先队列中的最大元素|
+|pq.top();|返回但不移除优先队列中的最大元素|
+|pq.empty();|检查优先队列是否为空。|
+
+C++中的优先队列是标准模板库（STL）的一部分，通常使用priority_queue模板类来实现。
+```c
+   #include <queue>
+   using namespace std;
+
+   int main() {
+	   priority_queue<int> pq;
+	   // 插入元素
+	   pq.push (5);
+	   pq.push (3);
+	   pq.push (7);
+	   // 删除最高优先级的元素
+	   pq.pop ();
+	   // 获取最高优先级的元素
+	   cout << pq.top () << endl;
+	   return 0;
+   }
+```
+在C++中，`priority_queue`默认为`最大堆`从大到小，即最大的元素会首先被移除。
+可以通过第三个模板参数来指定排序方式，例如：
+   `priority_queue<int, vector<int>, greater<int>> pq;`
+这样可以将优先队列变为`最小堆`。
+1.元素类型：`int`表示优先队列中存储的元素类型。
+2.底层容器：`vector<int>`表示用于存储元素的容器类型。在优先队列中，默认使用`vector`作为底层容器。
+3.比较函数对象：`greater<int>`，这是一个仿函数，用于指定元素的排序方式。由于使用了`greater<int>`，因此该优先队列会按照从小到大的顺序排列元素，即小顶堆.
+默认情况下，`priority_queue`使用`std::less`作为其比较函数，这意味着它会创建一个大顶堆。
+访问`priority_queue`的顶部元素`top()`的时间复杂度是`O(1)`，但插入`push()`和删除顶部元素`pop()`的时间复杂度是`O(log n)`，其中n是队列中元素的数量。
+`priority_queue`不保证元素的顺序（除了顶部元素），也不提供随机访问。
+**结构体类型**
+```
+struct Node {
+	int a, b;
+	// 重载小于操作符，以实现自定义排序规则
+	bool operator<(const Node& other) const {               //[记住格式]
+		// 假设我们希望先按a升序排序，如果a相同，则按b降序排序
+		if (a != other.a) return a < other.a;
+		return b > other.b; // 注意这里使用'>'来实现b的降序
+	}
+};
+
+int main() {
+	priority_queue<Node> pq;
+	Node n1{ 1, 9 };
+	Node n2{ 1, 5 };
+	Node n3{ 9, 1 };
+
+	pq.push(n1);
+	pq.push(n2);
+	pq.push(n3);
+
+	while (!pq.empty()) {
+		Node top = pq.top();
+		pq.pop();
+		cout << top.a << " " << top.b << endl;
+	}
+
+	return 0;
+}
+```
+例题
+[P1090 [NOIP2004 提高组] 合并果子](https://www.luogu.com.cn/problem/P1090)
+```
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 1e6 + 10;
+#define ll long long int
+int main() {
+	int n;
+	cin >> n;
+	int t;
+	priority_queue<int,vector<int>,greater<int> > a;
+	for (int i = 0; i < n; i++) {
+		cin >> t;
+		a.push(t);
+	}
+	int sum = 0;
+	for (int i = 0; i < n - 1; i++) {
+		int sum1 = 0;
+		sum1 += a.top();
+		a.pop();
+		sum1 += a.top();
+		a.pop();
+		sum += sum1;
+		a.push(sum1);
+	}
+	cout << sum;
+	return 0;
+}
+```
+
+## 双端队列
+### Deque的定义
+双端队列（Double-Ended Queue，简称Deque）是一种具有队列和栈性质的数据结构。
+其主要特点是允许在两端进行插入和删除操作，即可以在队首（前端）和队尾（后端）同时进行入队和出队操作。
+双端队列是限定插入和删除操作在表的两端进行的线性表。这两端分别称为端点1和端点2。
+双端队列的元素可以从两端弹出，因此它兼具了队列和栈的特性.
+### Deque的语法
+在C++中，标准模板库（STL）提供了`std::deque`来实现双端队列的功能。
+`std::deque`可以被视为一个固定大小的数组，但它可以动态增长和缩减，且不需要在每次插入或删除时重新分配整个数组的内存。这种特性使得`std::deque`在插入和删除操作上非常高效。
+
+在C++中，使用双端队列需要包含相应的头文件：
+	`#include <deque>`
+定义一个双端队列对象的基本语法如下：
+	`deque<element_type> deq;`
+其中element_type可以是任意类型的数据，例如整数、字符串等。
+
+| 例子 | 说明|
+|-------- | -------- |
+|deq.push_back(x);|在队列尾部插入元素x|
+|deq.push_front(x);|在队列头部插入元素x|
+|deq.pop_back();|删除队列尾部的元素|
+|deq.pop_front();|删除队列头部的元素|
+|deq.at(size_type pos);|返回位置pos处的元素，如果位置超出范围则引发异常|
+|deq.find(const value_type& val);|查找指定值val的位置，并返回迭代器指向该位置，如果未找到则返回end()|
+
+以下是定义和使用 std::deque 的基本语法：
+```
+#include <iostream>
+#include <deque>
+
+int main()
+{
+	// 定义一个 int 类型的双端队列
+	std::deque<int> myDeque;
+
+	// 向队列头部插入元素
+	myDeque.push _back(10);
+	myDeque.push _back(20);
+	myDeque.push _back(30);
+
+	// 向队列尾部插入元素
+	myDeque.push _back(40);
+	myDeque.push _back(50);
+
+	// 删除队列头部元素
+	myDeque.pop _back();
+
+	// 删除队列尾部元素
+	myDeque.pop _back();
+
+	// 查找并打印所有元素
+	for (int num : myDeque)
+	{
+		std::cout << num << " ";
+	}
+	return 0;
+}
+```
+*/

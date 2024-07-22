@@ -1,21 +1,21 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 //A
-//#include<bits/stdc++.h>
-//#include<cmath>
-//using namespace std;
-//double f(double x, double n) {
-//	if ((n == 1)) return sqrt(x + 1);
-//	if ((n == 0)) return 0.00;
-//	return sqrt(n + f(x,n - 1));
-//}
-//int main() {
-//	double x, n;
-//	while (cin >> x >> n) {
-//		cout << fixed << setprecision(2) << f(x, n) << endl;
-//	}
-//	return 0;
-//}
+#include<bits/stdc++.h>
+#include<cmath>
+using namespace std;
+double f(double x, double n) {
+	if ((n == 1)) return sqrt(x + 1);
+	if ((n == 0)) return 0.00;
+	return sqrt(n + f(x,n - 1));
+}
+int main() {
+	double x, n;
+	while (cin >> x >> n) {
+		cout << fixed << setprecision(2) << f(x, n) << endl;
+	}
+	return 0;
+}
 
 
 //B	
