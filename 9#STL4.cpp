@@ -1,7 +1,7 @@
-//#include<bits/stdc++.h>
-//using namespace std;
-//#define int long long
-//const int N = 1e6 + 10;
+// #include<bits/stdc++.h>
+// using namespace std;
+// #define int long long
+// const int N = 1e6 + 10;
 // 
 //for (int i = 0; i < n; i++){}
 //scanf("%d", &n);
@@ -54,47 +54,43 @@ signed main(){
 
 
 // C
-// #include <bits/stdc++.h>
-// using namespace std;
-// #define int long long
-// #define N 1e5 + 10
-// signed main(){
-// 	ios_base::sync_with_stdio(false);
-// 	cin.tie(nullptr);cout.tie(nullptr);
+/*
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+#define N 1e5 + 10
+signed main(){
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);cout.tie(nullptr);
+	string s;
+	set<string> set;
+	while (cin >> s)
+	{
+		int len=(int)s.size();
+		for (int i = 0; i < len; i++)
+		{
+			if (isalpha(s[i])) // 检查字符串s中的第i个字符是否是字母
+			{
+				s[i] = (tolower(s[i])); // 如果是的话，将其转换为小写
+			}
+			else s[i]=' ';
+		}
 
-// 	string s;
-// 	set <string> st;
-// 	while (cin>>s)
-// 	{
-// 		queue<char> q;
-		
-// 		for (char n : s)
-// 		{
-// 			if (n >= 'a' && n <= 'z'){ // 入队列
-// 				q.push(n);
-// 			}
-// 			if (n == ' '){ // 整合
-// 				string sum;
-// 				while (!q.empty())
-// 				{
-// 					sum = sum + q.front();
-// 					q.pop();
-// 				}
-// 				st.insert(sum);
-// 			}
-// 		}
-// 		cout << st.size()+1 << endl;
-// 	}
-// 	return 0;
-// }
-
-
-
-
-
-
-
-
+		stringstream iss(s);
+		string word;
+		// 循环读取单词，直到iss中没有更多数据
+		while (iss >> word)
+		{
+			set.insert(word);
+		}
+	}
+		for (auto x : set)
+		{
+			cout << x << endl;
+		}
+	return 0;
+}
+*/
 
 
 
@@ -106,26 +102,18 @@ using namespace std;
 #define N 1e5 + 10
 signed main(){
 	string s;
-	while (getline(cin, s) && s != "#")
+	set <string> st;
+	while (getline(cin, s))
 	{
-		queue<char> q;
-		set <string> st;
-		s=s+' ';
-		for (char n : s)
-		{
-			if (n >= 'a' && n <= 'z'){ // 入队列
-				q.push(n);
-			}
-			if (n == ' '){ // 整合
-				string sum;
-				while (!q.empty())
-				{
-					sum = sum + q.front();
-					q.pop();
-				}
-				st.insert(sum);
-			}
-		}
+		if(s=="#")break;
+		st.clear(); 
+		istringstream iss(s);  
+    	string word;   
+  
+    	// 循环读取单词，直到iss中没有更多数据  
+		while (iss >> word) {  
+			st.insert(word);
+		} 
 		cout << st.size() << endl;
 	}
 	return 0;
