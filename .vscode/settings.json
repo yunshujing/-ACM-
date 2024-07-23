@@ -14,7 +14,23 @@
         "initializer_list": "cpp",
         "regex": "cpp",
         "utility": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "*.tcc": "cpp",
+        "optional": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp",
+        "ratio": "cpp",
+        "system_error": "cpp",
+        "functional": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "forward_list": "cpp",
+        "map": "cpp",
+        "typeindex": "cpp",
+        "typeinfo": "cpp"
     },
     "C_Cpp.errorSquiggles": "Tag Parser"
 }
