@@ -1096,3 +1096,24 @@ or `find()`
 相反亦然，有的题你用`unordered_map`能过，有可能`map`会被卡
 
 */
+
+
+
+//Day10
+/*
+// 代码模板
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define endl "\n"
+const int N = 1e6 + 10;
+
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);cout.tie(nullptr);//关闭同步流
+
+	cout默认保留小数点后4位
+	cout<<fixed<<setprecision(2)<<endl;//保留小数点后2位
+    return 0;
+}
+*/
