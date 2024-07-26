@@ -1352,3 +1352,111 @@ int main(){
 	cout<<s;
 } 
 ```
+
+Day12
+#### `sort`和`reverse`排序
+`sort(begin(),end())`默认从小到大排序
+`reverse`翻转排序
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	string s="ABCABCABC";
+	cout<<count(s.begin(),s.end(),'A');
+	sort(s.begin(),s.end());//排序
+	reverse(s.begin(),s.end());//翻转
+	cout<<s<<endl;
+}
+```
+例题
+
+[P1106 删数问题](https://www.luogu.com.cn/problem/P1106)
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	string n;int k;
+	cin>>n>>k;
+	while(k--){
+		for(int i=0;i<n.size();i++){
+			if(n[i]>n[i+1]){
+				n.erase(i,1);//删除前一个比后一个大的数
+				break;
+			}
+		}
+	}
+	int a=stoi(n);//删除前导0
+	cout<<a;
+	return 0;
+}
+```
+[P2580 于是他错误的点名开始了](https://www.luogu.com.cn/problem/P2580)
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int n;cin>>n;
+	map<string,int>p;
+	for(int i=1;i<=n;i++){
+		string s;cin>>s;
+		p[s]=1;
+	}
+	int m;cin>>m;
+	while(m--){
+		string s;cin>>s;
+		if(p[s]==1)cout<<"OK"<<endl,p[s]=-1;
+		else if(p[s]==-1)cout<<"REPEAT"<<endl;
+		else cout<<"WRONG"<<endl;
+
+	}
+	return 0;
+}
+```
+[P1628 合并序列](https://www.luogu.com.cn/problem/P1628)
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+string a[1000005],k;
+int main(){
+	int n;cin>>n;
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+	}
+	cin>>k;
+	sort(a,a+n);
+	for(int i=0;i<n;i++){
+		if(a[i].find(k)==0){
+			cout<<a[i]<<endl;
+		}
+	}
+	return 0;
+}
+```
+[P1104 生日](https://www.luogu.com.cn/problem/P1104)
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+struct student{
+	string s;
+	int y,m,d;
+	int id;
+};
+bool cmp(const student &a, const student &b);
+int main(){
+	int n;cin>>n;student a[10000];
+	for(int i=0;i<n;i++){
+		cin>>a[i].s>>a[i].y>>a[i].m>>a[i].d;
+		a[i].id=i;
+	}
+	sort(a,a+n,cmp);
+	for(int i=0;i<n;i++)cout<<a[i].s<<endl;
+	return 0;
+}
+bool cmp(const student& a, const student& b) {  
+    if (a.y != b.y) return a.y < b.y; // 先比较年份  
+    if (a.m != b.m) return a.m < b.m; // 年份相同则比较月份  
+    if (a.d != b.d) return a.d < b.d; // 年份和月份都相同则比较日期  
+    return a.id > b.id; // 所有都相同则根据id排序  
+}  
+```
+[P8871 [传智杯 #5 初赛] C-莲子的排版设计学](https://www.luogu.com.cn/problem/P8871)
