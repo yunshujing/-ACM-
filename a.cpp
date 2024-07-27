@@ -1,42 +1,41 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
 using namespace std;
-#define ll long long
+
+int findKthClosestDistance(const vector<int>& A, int b, int k) {
+    vector<int> distances;
+    for (int a : A) {
+        distances.push_back(abs(a - b));
+    }
+    nth_element(distances.begin(), distances.begin() + k - 1, distances.end());
+    return distances[k - 1];
+}
 
 int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(nullptr); cout.tie(nullptr);
-	int t; cin >> t;
-	for (int i = 0; i < t; i++) {
-		int n; cin >> n;
-		map<int, int>s;
-		//种类 其的数目
-		//存储
-		for (int j = 0; j < n; j++) {
-			int tmp; cin >> tmp;
-			auto it = s.find(tmp);
-			if (it != s.end()) {
-				s[tmp]++;
-			}
-			else {
-				s[tmp] = 1;
-			}
-		}
-		int name; int max_num = 0; int sum_num = 0;
-		for (auto x : s) {
-			sum_num += x.second;
-			if (x.second > max_num) {
-				max_num = x.second; 
-                name = x.first;
-			}
-		}
+    int N, Q;
+    cin >> N >> Q;
+    
+    vector<int> A(N);
+    for (int i = 0; i < N; ++i) {
+        cin >> A[i];
+    }
+    
+    sort(A.begin(), A.end());
 
-		int cnt = 0;
-		while (max_num < sum_num) {//查杀
-			cnt++; cnt += max_num;
-			max_num *= 2;
-		}
-		cnt -= max_num - sum_num;
-		printf("%d\n", cnt);
-	}
-	return 0;
+    vector<pair<int, int>> queries(Q);
+    for (int i = 0; i < Q; ++i) {
+        cin >> queries[i].first >> queries[i].second;
+    }
+    
+    for (const auto& query : queries) {
+        int b = query.first;
+        int k = query.second;
+        
+        int distance = findKthClosestDistance(A, b, k);
+        cout << distance << endl;
+    }
+    
+    return 0;
 }
