@@ -2,7 +2,7 @@
 using namespace std;
 #define int long long
 #define endl "\n"
-const int N = 1e6 + 10;
+const int N = 1e5 + 10;
 
 signed main(){
     ios::sync_with_stdio(false);

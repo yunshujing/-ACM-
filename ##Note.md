@@ -1460,3 +1460,162 @@ bool cmp(const student& a, const student& b) {
 }  
 ```
 [P8871 [传智杯 #5 初赛] C-莲子的排版设计学](https://www.luogu.com.cn/problem/P8871)
+
+
+
+// Day13
+## 贪心算法
+贪心算法（Greedy Algorithm），也称贪婪算法，是一种在每一步决策中都选择当前状态下最优的选项，以期达到全局最佳结果的优化算法。其核心思想是通过一系列局部最优选择来实现整体最优解。
+
+**定义与特性**
+贪心算法的基本定义如下：
+在每一步决策时，总是采取在当前状态下的最好选择，从而希望导致结果是最好或最优的。
+贪心算法不考虑未来可能产生的影响，只关注当前的局部最优解。
+贪心算法通常运行迅速，因为它们不涉及复杂的回溯或多次迭代。
+
+**特性**
+**局部最优选择**：在每步只选择当前看似最优的决策，不考虑长远后果。
+**不回溯**：一旦做出选择，不会回溯或重新评估这些决策。
+**简单直接**：由于算法逻辑简单，易于编码和快速实现。
+**高效性**：运行迅速，因为不需要复杂的回溯或多次迭代。
+
+**原理与使用方法**
+贪心算法的基本原理是从问题的某个初始解出发，逐步地进行选择，直到达到最终求解的过程。每一步选择都是基于当前的局部最优，并且不能回退。因此累积到的这些局部最优的选择结果，就是全局最优解。
+
+使用贪心算法需要满足以下两个条件：
+问题具有贪心选择性质，即使用当前最优解能够得到全局最优解；
+问题的子问题具有最优子结构性质，即原问题的最优解可以通过对子问题的最优解组合而得到。
+
+**设计步骤**
+设计贪心算法一般包括以下几个步骤：
+确定问题的最优子结构；
+基于问题的最优子结构设计一个递归算法；
+证明我们做出的贪心选择，只剩下一个子问题；
+证明贪心选择总是安全的；
+设计一个递归算法实现贪心策略；
+将贪心算法转化为迭代算法。
+
+**贪心算法的应用示例**：
+**最小生成树**：在加权无向图中，Prim算法和Kruskal算法都是基于贪心策略的算法，用于求解最小生成树。
+**活动选择问题**：给定一系列活动，每个活动都有一个开始时间和一个结束时间，求可以安排的最大活动数，使得没有两个活动的时间重叠。这个问题可以通过贪心算法求解。
+**背包问题（部分情况）**：虽然背包问题通常使用动态规划求解，但在某些特定条件下（如0-1背包问题的贪心版本，即“分数背包问题”），贪心算法也可以得到最优解。
+**哈夫曼编码**：在数据压缩中，哈夫曼编码是一种使用贪心算法构建的用于无损数据压缩的广泛使用的可变长编码方式。
+**例如**：在找零钱问题中，假设我们有面值为1元、5元、10元、50元、100元、500元的货币，现在要找零786元，贪心算法会从最大面额开始逐步减少，直到找到最优解。
+
+**贪心算法的优缺点**：
+**优点**：
+算法简单，易于实现。
+在某些问题中，能够产生最优解或近似最优解。
+时间复杂度低，效率高。
+**缺点**：
+不适用于所有问题，特别是那些需要全局最优解的问题。
+贪心策略的选择对结果有很大影响，如果贪心策略选择不当，可能导致无法得到最优解。
+
+[P1478 陶陶摘苹果（升级版）](https://www.luogu.com.cn/problem/P1478)
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define endl "\n"
+const int N = 1e6 + 10;
+
+struct apple{
+	int high;
+	int power;
+}ap[N];
+
+int cmp(apple a,apple b){
+	return a.power<b.power;
+}
+
+
+signed main(){
+	ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+
+	
+	int n,s;//苹果数，力气
+	cin>>n>>s;
+
+	int a,b;//椅子高度，手臂长
+	cin>>a>>b;
+
+	for(int i=1;i<=n;i++){
+		cin>>ap[i].high>>ap[i].power;
+	}
+
+	sort(ap+1,ap+n+1,cmp);//对苹果按照力气从小到大排序
+
+	//摘苹果
+	int ans=0;
+	for(int i=1;i<=n;i++){
+		//判断高度是否足够
+		if(ap[i].high>a+b){//超出高度
+			continue;
+		}
+		else if(s>=ap[i].power){
+			s-=ap[i].power;
+			ans++;
+		}
+	}
+    cout << ans<<endl;
+    return 0;
+}
+```
+
+[P2240 【深基12.例1】部分背包问题](https://www.luogu.com.cn/problem/P2240)
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define endl "\n"
+const int N = 1e6 + 10;
+
+struct gold{
+	int x;
+	int y;
+	double pj;
+}jb[N];
+
+int cmp(gold a,gold b){
+	return a.pj>b.pj;
+}
+
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);cout.tie(nullptr);
+
+	int n,t;
+	cin>>n>>t;
+
+	for(int i=0;i<n;i++){
+		cin>>jb[i].x>>jb[i].y;
+		jb[i].pj=(double)jb[i].y/(double)jb[i].x;
+	}
+
+	sort(jb,jb+n,cmp);
+
+	double sum=0;
+	for(int i=0;i<n;i++){
+        if(t>=jb[i].x){
+			sum+=jb[i].y;
+			t-=jb[i].x;
+		}
+		else if(t>0){
+			sum+=(t)*jb[i].pj;
+            break;
+        }
+	}
+	cout<<fixed<<setprecision(2)<<sum;
+    return 0;
+}
+```
+[P1803 凌乱的yyy / 线段覆盖](https://www.luogu.com.cn/problem/P1803)
+[P1106 删数问题](https://www.luogu.com.cn/problem/P1106)
+
+
+
+
+
+
