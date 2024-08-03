@@ -3,8 +3,8 @@ using namespace std;
 #define int long long
 #define endl "\n"
 const int N = 1e6 + 10;
-const double eps =1e-7;
-int a[1000],x[1000][1000],sum[1000];
+const double eps =1e-4;
+int a[100];
 signed main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);cout.tie(nullptr);
@@ -12,26 +12,30 @@ signed main(){
     int n, m;
     cin >> n >> m;
 
-    for (int i = 1; i <= m; i++)
-    {
+    int sum = 0;
+    for (int i = 1; i <= n;i++){
         cin >> a[i];
-    }
-    memset(sum, 0, sizeof(sum));
-    for (int i = 1; i < n; i++)
-    {
-        for (int j = 1; j <= m; j++)
-        {
-            cin >> x[i][j];
-            sum[j] += x[i][j];
-        }
+        sum += a[i];
     }
 
-    for (int z = 1; z <= m;z++){
-        if(a[z]>sum[z]){
-            cout << "No" << endl;
-            return 0;
-        }
+    if(sum<=m){
+        cout << "infinite" << endl;
+        return 0;
     }
-    cout << "Yes" << endl;
+    sort(a + 1, a + n + 1);
+    
+    int cnt = 0;
+
+    int i = 1, j = n;              //注意：不是 n-1
+    while (i<j) {
+        int mid = i + (j-i+1)/2;
+        if(a[mid]*n <= m)
+            i = mid;
+        else
+            j = mid-1;
+    }             //终止于l = r
+    cnt = a[i];
+    cout << cnt << endl;
+
     return 0;
 }
