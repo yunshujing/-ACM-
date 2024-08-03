@@ -1,35 +1,24 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define int long long
-#define endl "\n"
-const int N = 1e5 + 10;
-
-int a[2000][2000];
-
-signed main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);cout.tie(nullptr);
-
-    int n, m;
-    cin >> n >> m;
-    
-    int x1, y1, x2, y2;
-    while(m--){
-        cin >> x1 >> y1 >> x2 >> y2;
-
-        for (int i = x1; i <= x2;i++){
-            a[i][y1]++;//首列记录
-            a[i][y2 + 1]--;//尾列减少截至
-        }
-    }
-    for (int i = 1; i <= n; i++)
+int main()
+{
+    double s, s1, s2, v1, v2, t1, t2, p;
+    double a, b;
+    cin >> s >> v1 >> v2;
+    s1 = 0;
+    s2 = s;
+    do
     {
-        for (int j = 1; j <= n; j++)
-        {
-            a[i][j] += a[i][j - 1];//根据上一排的压缩数据展开
-            cout << a[i][j]<<(j < n ? " " : "\n");
-        }
-    }
-
+        p = (s1 + s2) / 2.0;//棰勯�夌偣
+        a = p / v2;//鍓嶆鏃堕棿
+        b = (p - a * v1) / (v1 + v2);//杞﹀洖鏉ヤ笌鐢茬浉閬囨椂闂?
+        t1 = a + (s - p) / v1;//涔?
+        t2 = a + b + (s - (a + b) * v1) / v2;//鐢?
+        if (t1 < t2)
+            s2 = p;
+        else
+            s1 = p;
+    } while (fabs(t1 - t2) > 1e-8);
+    cout << fixed << setprecision(6) << t1 << endl;
     return 0;
 }
