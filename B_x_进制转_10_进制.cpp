@@ -11,7 +11,20 @@ signed main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);cout.tie(nullptr);
 
-    char t = 'f';
-    cout << (int)t << endl;
+    int n;
+    string s;
+    cin >> n >> s;
+
+    int sum = 0;
+    for (char x:s){
+        sum *= n;
+        if(x>='A'&&x<='Z'){
+            sum += (int) (x - 'A' + 10);
+        }
+        else
+            sum += (int)(x - '0');
+        
+    }
+    cout << sum << endl;
     return 0;
 }
