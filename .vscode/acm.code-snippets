@@ -19,36 +19,131 @@
   // 代码转换网址：
   // https://snippet-generator.app/
 
-  "Create cpp": {
-    "prefix": "ccpp",
-    "body": [
-      "#include<bits/stdc++.h>",
-      "using namespace std;",
-      "#define int long long",
-      "#define endl \"\\n\"",
-      "const int N = 1e6 + 10;",
-      "const double eps =1e-4;",
-      "//int a[N];",
-      "//vector <int> a;",
-      "",
-      "signed main(){",
-      "    ios::sync_with_stdio(false);",
-      "    cin.tie(nullptr);cout.tie(nullptr);",
-      "    ",
-      "    ",
-      "    ",
-      "    return 0;",
-      "}"
-    ],
-    "description": "Create cpp"
-  },
-  "bool cmp": {
-    "prefix": "bcmp",
-    "body": [
-      "bool cmp(int a, int b){",
-      "    return a > b;",
-      "}"
-    ],
-    "description": "bool cmp"
-  }
+"Create cpp": {
+"prefix": "ccpp",
+"body": [
+	"#include<bits/stdc++.h>",
+	"using namespace std;",
+	"#define int long long",
+	"#define endl \"\\n\"",
+	"const int N = 1e6 + 10;",
+	"const double eps =1e-4;",
+	"//int a[N];",
+	"//vector <int> a;",
+	"",
+	"signed main(){",
+	"    ios::sync_with_stdio(false);",
+	"    cin.tie(nullptr);cout.tie(nullptr);",
+	"    ",
+	"    ",
+	"    ",
+	"    return 0;",
+	"}"
+],
+"description": "初始格式化"
+},
+"bool cmp": {
+"prefix": "bcmp",
+"body": [
+	"bool cmp(int a, int b){",
+	"    return a > b;",
+	"}"
+],
+"description": "bool cmp"
+},
+"快速幂": {
+"body": [
+	"int fastPower(int a, int b, int mod/* 取模 */) {",
+	"    int result = 1; // 初始化结果为1",
+	"    a = a % mod; // 将a对m取模",
+	"    while (b > 0) {",
+	"        // 如果b的当前位是1，则将当前的a乘到result上",
+	"        if (b & 1) { // 等价于 if (b % 2 == 1)",
+	"            result *= a;",
+	"\t\t\tresult %= mod;",
+	"        }",
+	"        // 将a平方，准备处理下一位",
+	"        a *= a;",
+	"\t\ta %= mod;",
+	"        // b右移一位",
+	"        b >>= 1; // 等价于 b = b / 2;",
+	"    }",
+	"    return result;",
+	"}"
+],
+"prefix": "ksm",
+"description": "快速幂函数，计算 a^b % m"
+},
+"10进制转x进制": {
+	"body": [
+		"string ten_to_x_base(int n,int x){",
+		"\tstack<char> s;",
+		"\tstring xs;",
+		"\twhile (n > 0) {",
+		"\t\tint tmp = n % x;",
+		"\t\tif (tmp >= 10) {",
+		"\t\t\ts.push('A' + tmp - 10);",
+		"\t\t}",
+		"\t\telse {",
+		"\t\t\ts.push('0' + tmp - 0);",
+		"\t\t}",
+		"\t\tn /= x;",
+		"\t}",
+		"\twhile (!s.empty()) {",
+		"\t\txs = xs + s.top();",
+		"\t\ts.pop();",
+		"\t}",
+		"\treturn xs;",
+		"}"
+	],
+	"prefix": "10tox",
+	"description": "10进制转x进制"
+},
+"x进制转10进制": {
+"body": [
+	"int x_to_ten_base(int n,string s){",
+	"    int sum = 0;",
+	"    for (char x:s){",
+	"        sum *= n;",
+	"        if(x>='A'&&x<='Z'){",
+	"            sum += (int) (x - 'A' + 10);",
+	"        }",
+	"        else",
+	"            sum += (int)(x - '0');",
+	"        ",
+	"    }",
+	"    return sum;",
+	"}"
+],
+"prefix": "xto10",
+"description": "x进制转10进制"
+},
+"整数二分": {
+"body": [
+	"int bin_search(int *a, int n, int x){  //a[0]～a[n-1]是单调递增的",
+	"    int l = 0, r = n;              //注意：不是 n-1",
+	"    while (l < r) {",
+	"        int mid = (l + r)/2; ",
+	"        //int mid = (l + r) >> 1;  ",
+	"        if (a[mid] >= x)  r = mid;",
+	"        else    l = mid + 1;",
+	"    }                   //终止于left = right",
+	"    return l;       //特殊情况：a[n-1] < x时，返回n",
+	"}"
+],
+"prefix": "erfen_int",
+"description": "整数二分"
+},
+"实数二分": {
+"body": [
+	"const double eps =1e-7;        //精度。如果下面用for，可以不要eps",
+	"while(r - l > eps){     //for(int i = 0; i<100; i++){",
+	"    double mid = (l + r)/2;",
+	"    if (check(mid)) r = mid;           //判定，然后继续二分",
+	"    else            l  = mid;",
+	"}"
+],
+"prefix": "erfen_double",
+"description": "实数二分"
+}
 }
