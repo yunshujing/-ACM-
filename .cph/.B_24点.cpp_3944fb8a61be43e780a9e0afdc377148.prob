@@ -1,0 +1,1 @@
+{"name":"Local: B_24点","url":"d:\\ACM\\B_24点.cpp","tests":[{"id":1723104924442,"input":"2\n5 5 5 1\n1 1 4 2","output":"Yes\nNo"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\ACM\\B_24点.cpp","group":"local","local":true}

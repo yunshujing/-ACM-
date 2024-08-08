@@ -26,17 +26,12 @@
 	"using namespace std;",
 	"#define int long long",
 	"#define endl \"\\n\"",
-	"#define vll vector<long long>",
-	"#define vld vector<long double>",
-	"#define fi first",
-	"#define se second",
-	"#define pb push_back",
 	"const int N = 1e6 + 10;",
 	"const double eps =1e-4;",
 	"const int mod1 = 998244353;",
 	"",
 	"//int a[N];",
-	"//vector <int> a;",
+	"//vll a;",
 	"",
 	"signed main(){",
 	"    ios::sync_with_stdio(false);",
@@ -152,5 +147,29 @@
 ],
 "prefix": "erfen_double",
 "description": "实数二分"
+},
+"深搜": {
+	"body": [
+		"int vis[10010],n;",
+		"void dfs(vector<int> g,int cnt){",
+		"\tif(cnt == n){",
+		"\t\tfor(int i = 0 ;i < n; i++){",
+		"\t\t\tcout << g[i] << \" \";",
+		"\t\t}",
+		"\t\tcout  <<  endl;",
+		"\t\treturn;",
+		"\t}",
+		"\tfor(int i = 1 ; i <= n; i++){",
+		"\t\tif(vis[i]) continue;//已经标记就跳过",
+		"\t\tg.push_back(i);",
+		"\t\tvis[i] = 1;//标记",
+		"\t\tdfs(g, cnt + 1);",
+		"\t\tg.pop_back();",
+		"\t\tvis[i] = 0;//取消标记",
+		"\t}",
+		"}"
+	],
+	"prefix": "dfs1",
+	"description": "深搜"
 }
 }
