@@ -171,5 +171,25 @@
 	],
 	"prefix": "dfs1",
 	"description": "深搜"
+},
+"素数判断": {
+	"body": [
+		"bool isPrime(int x) {",
+		"    if (x < 2)",
+		"    {",
+		"        return false;",
+		"    }",
+		"    //试除法",
+		"    for (int i = 2; i <= x/i; i++)",
+		"    {",
+		"        if (x % i == 0) {",
+		"            return false;",
+		"        }",
+		"    }",
+		"    return true;",
+		"}"
+	],
+	"prefix": "sushu",
+	"description": "素数判断"
 }
 }
