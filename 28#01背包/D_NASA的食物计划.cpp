@@ -9,8 +9,10 @@ using namespace std;
 #define mod7 1000000007
 const int N = 1e6 + 10;
 const double eps =1e-4;
+
 int hi[1000],ti[1000],ki[1000];
 int dp[10000][10000];
+
 signed main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);cout.tie(nullptr);

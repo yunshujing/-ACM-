@@ -2678,3 +2678,288 @@ signed main(){
 
 1. x1 - y1 == x2 - y2 ?
 2. x1 + y1 == x2 + y2 ? 
+
+# Day24
+
+## BFS广度优先搜索
+广度优先搜索（Breadth-First Search, BFS）是一种用于遍历或搜索树或图的算法。
+这个算法从一个节点开始，探索该节点的所有直接邻居，然后再对每一个邻居节点进行同样的操作，直到找到目标节点或遍历完所有可达的节点。
+BFS通常使用队列（Queue）来实现。
+
+### bfs和dfs的区别：
+`dfs`往一个方向深搜后返回再搜
+`bfs`往多个方向广搜
+
+### 基本步骤
+
+1. **初始化**：选择一个起始节点，将其放入队列中。
+2. **循环**：当队列非空时，执行以下步骤：
+   - 从队列中移除一个节点（通常是队首节点）。
+   - 访问该节点（例如，打印节点值或进行其他处理）。
+   - 将该节点的所有未访问过的直接邻居节点加入队列中。
+3. **结束**：当队列为空时，算法结束。
+
+### 基本作用
+
+- BFS在搜索最短路径时非常有用，因为它总是先访问起始节点附近的节点。
+- BFS在无权图中特别有效，但在有权图中，如果边的权重不同，则可能需要使用其他算法（如Dijkstra算法）来找到最短路径。
+- BFS的时间复杂度依赖于图的表示和图的结构。在最坏的情况下（图是完全连接的），时间复杂度为O(V + E)，其中V是顶点数，E是边数。在最好的情况下（图是线性的），时间复杂度为O(V)。
+- BFS的空间复杂度主要由队列决定，最坏情况下为O(V)，因为所有节点都可能被加入队列中。
+
+## 样例：波浪形扩散原理
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+int n, m, vis[1001][1001], dist[1001][1001];
+struct point{
+	int x, y;
+};
+
+int dx[] = {1, -1,  0,  0};  
+int dy[] = {0,  0,  1, -1};//上下左右
+
+signed main(){
+	cin >> n >> m;
+	
+	queue<point> q;
+	
+	q.push({1, 1});  //起点 
+	vis[1][1] = 1;
+	dist[1][1] = 0;
+	while(!q.empty()){
+		point t = q.front();
+		q.pop();
+		for(int i=0;i<4;i++){
+			point s;
+			s.x = t.x + dx[i];
+			s.y = t.y + dy[i];
+			if(s.x <= 0 || s.y <= 0 || s.x > n || s.y > m) continue;
+			if(vis[s.x][s.y] == 1) continue;
+			vis[s.x][s.y] = 1;
+			dist[s.x][s.y] = dist[t.x][t.y] + 1;
+			q.push(s);
+		}
+	}
+	
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			cout << dist[i][j] << " \n"[j==m];
+		}
+	}
+	return 0;
+}
+```
+
+### 样例：走迷宫
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define double long double
+const int maxn = 1e6 + 100;
+const double eps = 1e-5;
+
+//上下左右
+int dx[] = { 0,0,-1,1 };
+int dy[] = { -1,1,0,0 };
+
+int mapp[100][100], vis[100][100];
+int ok = 0;
+
+struct point {
+	int x, y;
+	int step;
+};
+queue<point> s;
+
+signed main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr); cout.tie(nullptr);
+
+	int n, m; cin >> n >> m;
+	//输入地图
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			cin >> mapp[i][j];
+		}
+	}
+
+	int startx, starty, endx, endy; 
+	cin >> startx >> starty >> endx >> endy;
+	
+	//初始化起点并入队
+	point start; //结构体
+	start.x = startx, start.y = starty, start.step = 1;
+	s.push(start); 
+	vis[startx][starty] = 1;//vis 打标记，记录已经走过的点
+	//go
+	while (!s.empty()) {
+		int x = s.front().x, y = s.front().y;
+		s.pop();
+		if (x == endx && y == endy) {
+			ok = 1;
+			cout << s.front().step << endl;
+			break;
+		}
+		for (int choose = 0; choose <= 3; choose++) {
+			int tx = x + dx[choose]; 
+			int ty = y + dy[choose];//方向
+			if (mapp[tx][ty] == 0 && vis[tx][ty] == 0) {
+				point tmp; 
+				tmp.x = tx; 
+				tmp.y = ty; 
+				tmp.step = s.front().step + 1;
+				s.push(tmp); 
+				vis[tx][ty] = 1;
+			}
+		}
+	}
+	if (ok == 0) {
+		cout << "no ans" << endl;
+	}
+	return 0;
+}
+[输入样例]
+3 3
+0 0 0
+1 0 0
+0 0 1
+1 1 3 1
+[输出]
+5
+```
+
+# Day25
+## 动态规划
+动态规划（Dynamic Programming, DP）是一种在数学、计算机科学和经济学中使用的，通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法。在C++中实现动态规划通常涉及定义一个或多个数组（或向量）来存储子问题的解，以避免重复计算。
+
+### 定义
+
+动态规划通过把原问题分解为相对简单的子问题的方式求解复杂问题。它通常涉及以下几个关键步骤：
+
+1. **定义状态**：将问题分解为一系列子问题，并定义状态来表示这些子问题的解。
+2. **状态转移方程**：找出状态之间的关系，即如何从已知状态推导出新的状态（或解）。
+3. **初始化**：确定初始状态的值。
+4. **计算顺序**：确定计算状态的顺序，通常是自底向上（从简单到复杂）的顺序。
+5. **存储结果**：使用数组、向量或其他数据结构来存储中间结果，以便后续使用。
+
+### 语法
+
+由于动态规划是一种算法设计思想，而不是具体的语法结构，因此它没有特定的语法。但是，在C++中实现动态规划时，通常会使用到以下语法元素：
+
+- **数组**（或`std::vector`）：用于存储状态（即子问题的解）。
+- **循环**（如`for`、`while`）：用于遍历状态空间，计算状态转移方程。
+- **条件语句**（如`if`、`else`）：用于处理特殊情况或边界条件。
+- **函数**：将动态规划的逻辑封装在函数中，以便复用或测试。
+
+### 用途
+
+动态规划广泛应用于各种领域，特别是在计算机科学中，用于解决优化和计数问题。以下是一些常见的应用场景：
+
+- **优化问题**：如最短路径问题、最长公共子序列（LCS）、背包问题等。
+- **计数问题**：如不同路径的数量、排列组合问题等。
+- **决策过程**：如编辑距离、字符串匹配问题等。
+
+### 示例
+
+下面是一个使用C++实现的动态规划经典问题——斐波那契数列（Fibonacci Sequence）的示例。斐波那契数列是这样一个数列：0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...，其中每个数是前两个数的和。
+
+**斐波那契数列的C++实现（动态规划）**
+
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// 动态规划求解斐波那契数列
+int fibonacciDP(int n) {
+    if (n <= 0) return 0;
+    if (n == 1) return 1;
+
+    // 创建一个数组来存储斐波那契数列的值
+    vector<int> dp(n + 1, 0);
+    dp[1] = 1; // 初始化第一个值
+
+    // 从第二个数开始计算
+    for (int i = 2; i <= n; ++i) {
+        dp[i] = dp[i - 1] + dp[i - 2]; // 动态规划的核心递推公式
+    }
+
+    return dp[n];
+}
+
+int main() {
+    int n;
+    cout << "请输入n的值（斐波那契数列的第n项）: ";
+    cin >> n;
+
+    cout << "斐波那契数列的第" << n << "项是: " << fibonacciDP(n) << endl;
+
+    return 0;
+}
+```
+
+在这个例子中，我们使用了`vector<int>`来存储斐波那契数列的值，以避免重复计算。通过从第二项开始迭代计算，直到第n项，我们得到了整个数列的解。这种方法的时间复杂度是O(n)，空间复杂度也是O(n)，因为我们使用了一个大小为n+1的数组来存储中间结果。
+
+动态规划的应用非常广泛，包括但不限于背包问题、最长公共子序列（LCS）、最短路径问题等。每种问题都有其特定的状态定义和转移方程，但基本思想都是类似的：将大问题分解为小问题，并存储已解决的小问题的答案，以避免重复计算。
+
+
+# Day26
+## 01背包&&完全背包
+
+① 01背包:每件物品最多使用一次(只能使用0次或1次)
+	(一)状态表示 f(i j)
+		1.集合:只考虑前i个物品，且总体积不大于i的所有选法。
+		2.属性:Max、Min、数量
+	(二)状态计算-→集合划分-→f[i,j]= Max( f[i-1,j],f[i-1,j-V[i]]+ W[i])
+
+② 完全背包:每件物品有无限个
+	(一)状态表示 f(i,j)
+		1.集合:只考虑前i个物品，且总体积不大于i的所有选法
+		2.属性:Max、Min、数量
+	(二)状态计算--→集合划分--→f[i,j]= Max( f[i-1,j],f[i, j-V[i]]+ W[i])
+
+### 01背包问题
+有$N$件物品和一个容量是$V$的背包，每件物品只能使用一次。
+第$i$件物品的体积是$Vi$，价值是$Wi$。
+求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。
+输出最大价值。
+n  m//n=4,m=5
+4  5
+1  2
+2  4
+3  4
+4  5
+
+```cpp
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+const int N=1010;
+
+int n, m;
+int v[N], w[N];
+int f[N];
+
+int main(){
+	cin >> n >> m;
+	
+	for(int i=1;i<=n;i++){
+		cin >> v[i] >> w[i];
+	}
+	
+	for(int i=1;i<=n;i++){
+		for(int j=m;j>=v[i];j--){  //从大到小循环
+			f[j] = max(f[j], f[j-v[i]] + w[i]);
+		}
+	}
+	
+	cout << f[m] << endl;
+				
+	return 0;
+}
+```
