@@ -9,21 +9,25 @@ using namespace std;
 #define mod7 1000000007
 const int N = 1e6 + 10;
 const double eps =1e-4;
-vector<int> a(100010);
+vector<int> a(N);
+vector<int> s(N);
 signed main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);cout.tie(nullptr);
 
     int n, m;
     cin >> n >> m;
-    for (int i = 1; i <= n;i++){
+    cin >> a[1];
+    s[1] = a[1];
+    for (int i = 2; i <= n;i++){
         cin >> a[i];
+        s[i] = s[i] & s[i - 1];
     }
     while(m--){
         int l,r,ans=0;
         cin >> l >> r;
-        int sum = a[l];
-        for (int i = l+1; i <= r;i++){
+        // int sum = a[l];
+        for (int i = l; i <= r;i++){
             int x1 = a[i];
             sum = sum & x1;
         }
@@ -31,12 +35,3 @@ signed main(){
     }
     return 0;
 }
-
-// for (int j = 1; j < n;j++){
-//                 int x1 = a[i], x2 = a[j + 1];
-//                 int y1 = i & x1 & x2;
-//                 if(y1 == i){
-//                     ans = i;
-//                     continue;
-//                 }
-//             }
