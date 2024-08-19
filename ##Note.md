@@ -2911,16 +2911,18 @@ int main() {
 ## 01背包&&完全背包
 
 ① 01背包:每件物品最多使用一次(只能使用0次或1次)
-	(一)状态表示 f(i j)
-		1.集合:只考虑前i个物品，且总体积不大于i的所有选法。
-		2.属性:Max、Min、数量
-	(二)状态计算-→集合划分-→f[i,j]= Max( f[i-1,j],f[i-1,j-V[i]]+ W[i])
+(一)状态表示 f(i j)
+1. 集合:只考虑前i个物品，且总体积不大于i的所有选法。
+2. 属性:Max、Min、数量
+
+(二)状态计算-→集合划分-→f[i,j]= Max( f[i-1,j],f[i-1,j-V[i]]+ W[i])
 
 ② 完全背包:每件物品有无限个
-	(一)状态表示 f(i,j)
-		1.集合:只考虑前i个物品，且总体积不大于i的所有选法
-		2.属性:Max、Min、数量
-	(二)状态计算--→集合划分--→f[i,j]= Max( f[i-1,j],f[i, j-V[i]]+ W[i])
+(一)状态表示 f(i,j)
+1. 集合:只考虑前i个物品，且总体积不大于i的所有选法
+2. 属性:Max、Min、数量
+
+(二)状态计算--→集合划分--→f[i,j]= Max( f[i-1,j],f[i, j-V[i]]+ W[i])
 
 ### 01背包问题
 有$N$件物品和一个容量是$V$的背包，每件物品只能使用一次。
@@ -2961,6 +2963,156 @@ int main(){
 	cout << f[m] << endl;
 				
 	return 0;
+}
+```
+
+# Day 27
+## 并查集
+### 朴素并查集
+- 路径压缩
+- 按秩合并
+  
+例题[P1551](https://www.luogu.com.cn/problem/P1551)
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define double long double
+#define endl "\n"
+#define fi first
+#define se second
+#define mod3 998244353
+#define mod7 1000000007
+const int N = 1e6 + 10;
+const double eps =1e-4;
+
+vector<int> p(5010);//我的父亲是谁
+//初始化
+void init(int n){
+    for (int i = 1; i <= n; i++)
+    {
+        p[i] = i;//自己是自己的监护人
+    }
+    
+}
+//找自己最上面的祖宗 近乎O(1)
+int find(int x){
+	/* 
+    if(x != p[x]){
+        return find(p[x]);//上面还有人
+    }
+    else{
+        return x;//自己就是自己的监护人，即祖宗
+    }
+	*/
+	if(x != p[x]){
+        p[x] = find(p[x]);//路径压缩[better!]
+    }
+    return p[x];
+}
+//合并
+void merge(int u,int v){
+    int pu = find(u);
+    int pv = find(v);
+    if(pu != pv){
+        p[pu] = pv;//新爹，合并完成
+    }
+}
+
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);cout.tie(nullptr);
+
+    int n, m, q;
+    cin >> n >> m >> q;
+    init(n);
+    while (m--){
+        int u, v;
+        cin >> u >> v;
+        merge(u, v);//有亲戚关系的人合并
+    }
+    while(q--){
+        int a, b;
+        cin >> a >> b;
+        if(find(a) == find(b)){
+            cout << "Yes" << endl;
+        }
+        else{
+            cout << "No" << endl;
+        }
+    }
+    return 0;
+}
+```
+### 带权并查集(size并查集)
+
+- size并查集：查询数组的大小权值
+
+例题[P1551](https://www.luogu.com.cn/problem/P1551)
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define double long double
+#define endl "\n"
+#define fi first
+#define se second
+#define mod3 998244353
+#define mod7 1000000007
+const int N = 1e6 + 10;
+const double eps =1e-4;
+
+vector<int> p(N);//我的父亲是谁
+vector<int> siz(N);//集合大小
+//初始化
+void init(int n){
+    for (int i = 1; i <= n; i++)
+    {
+        p[i] = i;//自己是自己的监护人
+        siz[i] = 1;
+    }
+    
+}
+//找自己最上面的祖宗 近乎O(1)
+int find(int x){
+	if(x != p[x]){
+        p[x] = find(p[x]);//路径压缩[better!]
+    }
+    return p[x];
+}
+//合并
+void merge(int u,int v){
+    int pu = find(u);
+    int pv = find(v);
+    if(pu!=pv){
+        siz[pv] += siz[pu];
+        p[pu] = pv;
+    }
+}
+
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);cout.tie(nullptr);
+
+    int n, m, q;
+    cin >> n >> m >> q;
+    init(n);
+    while (m--){
+        int u, v;
+        cin >> u >> v;
+        merge(u, v);//有亲戚关系的人合并
+    }
+    while(q--){
+        int a, b;
+        cin >> a >> b;
+        if(find(a) == find(b)){
+            cout << "Yes" << endl;
+        }
+        else{
+            cout << "No" << endl;
+        }
+    }
+    return 0;
 }
 ```
 

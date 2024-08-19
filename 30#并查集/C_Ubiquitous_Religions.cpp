@@ -13,25 +13,25 @@ using namespace std;
 const int N = 1e6 + 10;
 const double eps =1e-4;
 
-vector<int> p(N);//æˆ‘çš„çˆ¶äº²æ˜¯è°
-vector<int> siz(N);//é›†åˆå¤§å°
-//åˆå§‹åŒ–
+vector<int> p(N);//ÎÒµÄ¸¸Ç×ÊÇË­
+vector<int> siz(N);//¼¯ºÏ´óĞ¡
+//³õÊ¼»¯
 void init(int n){
     for (int i = 1; i <= n; i++)
     {
-        p[i] = i;//è‡ªå·±æ˜¯è‡ªå·±çš„ç›‘æŠ¤äºº
+        p[i] = i;//×Ô¼ºÊÇ×Ô¼ºµÄ¼à»¤ÈË
         siz[i] = 1;
     }
     
 }
-//æ‰¾è‡ªå·±æœ€ä¸Šé¢çš„ç¥–å®— è¿‘ä¹O(1)
+//ÕÒ×Ô¼º×îÉÏÃæµÄ×æ×Ú ½üºõO(1)
 int find(int x){
     if(x != p[x]){
-        p[x] = find(p[x]);//è·¯å¾„å‹ç¼©[better!]
+        p[x] = find(p[x]);//Â·¾¶Ñ¹Ëõ[better!]
     }
     return p[x];
 }
-//åˆå¹¶
+//ºÏ²¢
 void merge(int u,int v){
     int pu = find(u);
     int pv = find(v);
