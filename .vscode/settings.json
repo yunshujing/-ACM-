@@ -75,5 +75,6 @@
         "streambuf": "cpp",
         "thread": "cpp"
     },
-    "C_Cpp.errorSquiggles": "Tag Parser"
+    "C_Cpp.errorSquiggles": "Tag Parser",
+    "workbench.editor.wrapTabs": true
 }

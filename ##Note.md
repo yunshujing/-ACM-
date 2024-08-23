@@ -2831,7 +2831,7 @@ signed main() {
 5
 ```
 
-# Day25
+# Day27
 ## 动态规划
 动态规划（Dynamic Programming, DP）是一种在数学、计算机科学和经济学中使用的，通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法。在C++中实现动态规划通常涉及定义一个或多个数组（或向量）来存储子问题的解，以避免重复计算。
 
@@ -2907,7 +2907,7 @@ int main() {
 动态规划的应用非常广泛，包括但不限于背包问题、最长公共子序列（LCS）、最短路径问题等。每种问题都有其特定的状态定义和转移方程，但基本思想都是类似的：将大问题分解为小问题，并存储已解决的小问题的答案，以避免重复计算。
 
 
-# Day26
+# Day28
 ## 01背包&&完全背包
 
 ① 01背包:每件物品最多使用一次(只能使用0次或1次)
@@ -2966,7 +2966,7 @@ int main(){
 }
 ```
 
-# Day 27
+# Day 30
 ## 并查集
 ### 朴素并查集
 - 路径压缩
@@ -3115,4 +3115,567 @@ signed main(){
     return 0;
 }
 ```
+# Day31
+## 素数判定
+- 大素数判定：随机一些数去试除n
+- 费马小定理：如果n是素数，那么$a^{n-1} mod\ n = 1$  
+- 逆命题：如果$a^{n-1} mod\ n = 1$，那么n就是素数（不一定成立）
+- 如果$a^{n-1} mod\ n != 1$，那么n肯定不是素数（成立）
+- 随机多个a，计算$a^{n-1} mod\ n$，都等于1，$n$ 大概率是素数
+（可惜的是有很小很小很小的一部分合数，无论a取什么值他都能通过测试，怎么排除这部分合数？）
+- 二次探测定理
+推论：方程$x^2 mod\ n = 1$，如果$x$有$x=1$和$x=n-1$以外的解，$n$肯定不是素数。
+### Miller-Rabin算法模板
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+
+typedef long long ll;
+typedef unsigned long long ull; // 自然溢出
+typedef pair<int,int> PII;
+const int S = 50; // 测试数
+// 快速乘,防止乘法溢出longlong
+ll mult_mod(ll u,ll v,ll p){
+    return (u * v - ll((long double)u * v / p) * p + p) % p;
+}
+// 快速幂
+ll fast_pow(ll x,ll y,ll mod){
+    ll res = 1;
+    x %= mod;
+    while(y){
+        if(y & 1) res = mult_mod(res,x,mod);
+        x = mult_mod(x,x,mod);
+        y >>= 1;
+    }
+    return res;
+}
+
+bool witness(ll a,ll n){
+    ll u = n - 1;
+    int t = 0;
+    // 计算t,u,对n-1一直除2,直到是奇数,剩下的奇数是u,除2次数是t
+    while(u & 1 == 0){u = u >> 1,t++;} 
+    ll x1,x2;
+    x1 = fast_pow(a,u,n); // 计算a^u
+    // 做t次平方
+    for(int i = 1;i <= t;i++){
+        x2 = fast_pow(x1,2,n); // 平方后的结果
+        // 二次探测定理
+        if(x2 == 1 && x1 != 1 && x1 != n - 1) return true; // 必然是合数
+        x1 = x2;
+    }
+    // 最后x1=a^n-1,费马小定理
+    if(x1 != 1) return true; // 必然是合数
+    return false;
+}
+
+int miller_rabin(ll n){
+    if(n < 2) return 0; // 小于2是合数
+    if(n == 2) return 1; // 2是质数
+    if(n % 2 == 0) return 0; // 偶数是合数
+    // 剩下做测试
+    for(int i = 0;i < S;i++){
+        ll a = rand() % (n - 1) + 1; // 随机一个a
+        if(witness(a,n)) return 0; // 测试
+    }
+    return 1;
+}
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    cout << fixed << setprecision(6);
+    ll n;
+    cin >> n;
+    if(miller_rabin(n)){
+        cout << "P" << endl;
+    }
+    else{
+        cout << "not P" << endl;
+    }
+    return 0;
+}
+```
+
+
+## 逆元
+通俗的讲，逆元可以看做一个数的倒数的整数形式，但是一个数的逆元在不同的($mod$)意义下是不一样的。
+- $a\times x\equiv1\quad\mathrm{mod~}n$ → $a\times\frac1a\equiv1\quad\mathrm{mod~}n$
+  
+这个方程便是逆元的真正定义，$x$的解即代表$a$在$~mod~n~$意义下的逆元，通俗的讲：此时的$x$就相当于$a$的倒数，这样$a×x$便会等于1，在$~mod~n~$意义下余数必定为一。当然这个式子要建立在$a$与$n$互质
+的基础上！
+
+可是逆元有什么用呢？直接用倒数不行吗？这是因为我们发现一个分数$~mod~$一个整数时是不能直接模运算的，但是可以进行乘法运算，我们就要用到逆元（一个数倒数的整数形式）
+
+就像:$\quad\frac ab\quad\mathrm{mod~}(n)\neq\frac{a\mathrm{~mod~}n}{b\mathrm{~mod~}n}\quad\mathrm{mod~}(n)$
+但是:$\quad\frac ab\quad\mathrm{mod~}(n)=a\times b^{-1}\quad\mathrm{mod~}(n)$
+
+所以当除运算碰上我们的模运算时，我们就需要$~mod~模数$意义下的逆元了！
+
+[详细解释](https://www.cnblogs.com/812-xiao-wen/p/10500580.html)
+
+用逆计算组合数取模
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair<int,int> PII;
+
+#define endl '\n'
+
+const ll mod = 998244353;
+
+ll fpow(ll x,ll y,ll mod){
+    ll res = 1;
+    x %= mod;
+    while(y){
+        if(y & 1) res = (res * x) % mod;
+        x = (x * x) %mod;
+        y >>= 1;
+    }
+    return res;
+}
+
+ll inv(ll x){
+	ll res = fpow(x,mod - 2,mod);
+	return res;
+}
+
+ll fac[100005]; // 阶乘 fac[i] = i!
+ll invfac[100005]; // 阶乘的逆 
+
+void init(){
+	fac[0] = 1;
+	invfac[0] = 1;
+	for(int i = 1;i <= 100000;i++){
+		fac[i] = (fac[i - 1] * i) % mod;
+		invfac[i] = (invfac[i - 1] * fpow(i,mod - 2,mod)) % mod;
+	}
+} 
+
+ll C(ll a,ll b){
+	if(a < b){
+		return 0;
+	}
+	ll res = (((fac[a] * invfac[b] ) % mod)* invfac[a - b]) % mod;
+	return res;
+}
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    init();
+    ll a,b;
+    cin >> a >> b;
+    ll res = C(a,b);
+    cout << res << endl;
+    return 0;
+}
+```
+
+# Day32 
+## 素数筛法
+**引入**
+如果我们想要知道小于等于 n 有多少个素数呢？
+一个自然的想法是对于小于等于 n 的每个数进行一次质数检验。这种暴力的做法显然不能达到最优复杂度。
+
+### 埃氏筛 (省空间)
+**过程**
+考虑这样一件事情：对于任意一个大于 1 的正整数 n，那么它的 x 倍就是合数（x > 1）。利用这个结论，我们可以避免很多次不必要的检测。
+如果我们从小到大考虑每个数，然后同时把当前这个数的所有（比自己大的）倍数记为合数，那么运行结束的时候没有被标记的数就是素数了。
+**实现**
+```cpp
+vector<int> prime;
+bool is_prime[N];
+
+void Eratosthenes(int n) {
+  is_prime[0] = is_prime[1] = false;
+  for (int i = 2; i <= n; ++i) is_prime[i] = true;
+  for (int i = 2; i <= n; ++i) {
+    if (is_prime[i]) {
+      prime.push_back(i);
+      if ((long long)i * i > n) continue;
+      for (int j = i * i; j <= n; j += i)
+        // 因为从 2 到 i - 1 的倍数我们之前筛过了，这里直接从 i
+        // 的倍数开始，提高了运行速度
+        is_prime[j] = false;  // 是 i 的倍数的均不是素数
+    }
+  }
+}
+```
+以上为 Eratosthenes 筛法（埃拉托斯特尼筛法，简称埃氏筛法），时间复杂度是 $O(n\log\log n)$。
+
+**样例**
+[【模板】线性筛素数](https://www.luogu.com.cn/problem/P3383)
+```cpp
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+const int N = 1e8;
+int prime[N + 5]; // 存放所有素数，下标从0开始
+bool vit[N + 5];   // 是否被筛掉
+int k = 0;        // 统计素数个数
+
+// 埃氏筛 
+void E_sieve(int n){
+    // 初始化
+    k = 0;
+    for (int i = 0; i <= n; i++){
+        vit[i] = 0;
+    }
+    //试除法
+    for (int i = 2; i * i <= n; i++){
+        if (vit[i] == 0){
+            for (int j = i * i; j <= n; j += i){
+                vit[j] = 1;
+            }
+        }
+    }
+    for (int i = 2; i <= n; i++){
+        if (vit[i] == 0){
+            prime[k++] = i;
+        }
+    }
+}
+
+int main(){ 
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int n,q;
+	cin>>n>>q; 
+	E_sieve(n);
+	while(q--){
+		int x;
+		cin>>x;
+        cout << prime[x - 1] << endl;
+    }
+}
+```
+
+## 欧拉筛(速度快)
+筛法求欧拉函数 
+注意到在线性筛中，每一个合数都是被最小的质因子筛掉。比如设 $p_{1} $ 是 $n$ 的最小质因子，$ n^{\prime}=\frac{n}{p_{1}} $ ，那么线性筛的过程中 $n$ 通过 $n^{\prime} \times p_{1} $筛掉。
+观察线性筛的过程，我们还需要处理两个部分，下面对 $n^{\prime} \bmod p_{1}$ 分情况讨论。
+如果 $n^{\prime} \bmod p_{1}=0 $ ，那么 $ n^{\prime} $ 包含了 $ n $ 的所有质因子。
+$\begin{aligned}\varphi(n) & =n \times \prod_{i=1}^{s} \frac{p_{i}-1}{p_{i}} \\& =p_{1} \times n^{\prime} \times \prod_{i=1}^{s} \frac{p_{i}-1}{p_{i}} \\& =p_{1} \times \varphi\left(n^{\prime}\right)\end{aligned}$
+那如果 $ n^{\prime} \bmod p_{1} \neq 0 $ 呢，这时 $ n^{\prime}  和 $ p_{1} $ 是互质的，根据欧拉函数性质，我们有:
+$$ \begin{aligned}\varphi(n) & =\varphi\left(p_{1}\right) \times \varphi\left(n^{\prime}\right) \\& =\left(p_{1}-1\right) \times \varphi\left(n^{\prime}\right)\end{aligned}$$
+**实现**
+```cpp
+vector<int> pri;
+bool not_prime[N];
+int phi[N];
+
+void pre(int n) {
+  phi[1] = 1;
+  for (int i = 2; i <= n; i++) {
+    if (!not_prime[i]) {
+      pri.push_back(i);
+      phi[i] = i - 1;
+    }
+    for (int pri_j : pri) {
+      if (i * pri_j > n) break;
+      not_prime[i * pri_j] = true;
+      if (i & pri_j == 0) {
+        phi[i * pri_j] = phi[i] * pri_j;
+        break;
+      }
+      phi[i * pri_j] = phi[i] * phi[pri_j];
+    }
+  }
+}
+```
+**样例**
+[【模板】线性筛素数](https://www.luogu.com.cn/problem/P3383)
+```cpp
+#include <bits/stdc++.h>
+#define endl "\n"
+using namespace std;
+const int N = 1e8;
+int prime[N + 5]; // 存放所有素数，下标从0开始
+bool vit[N + 5];   // 是否被筛掉
+int k = 0;        // 统计素数个数
+
+// 欧拉筛 O(n)
+// 让每一个数只被自己最小的质因子筛掉
+void E_sieve(int n){
+    // 初始化
+    k = 0;
+    for (int i = 0; i <= n; i++){
+        vit[i] = 0;
+    }
+    // 做筛子的数 每一个数
+    for (int i = 2; i <= n; i++){
+        // 是素数直接存入
+        if (vit[i] == 0){
+            prime[k++] = i;
+        }
+        // 枚举的倍数乘已经有的素数，这个素数要作为最小质因子
+        for (int j = 0; j < k; j++){
+            // 超过n退出
+            if (i * prime[j] > n){
+                break;
+            }
+            vit[i * prime[j]] = 1; // 合数筛掉
+            // 倍数里有小的质因子，后面更大的质因子就不用看了
+            if (i & prime[j] == 0) {
+                break;
+            }
+        }
+    }
+}
+
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int n, q;
+    cin >> n >> q;
+    E_sieve(n);
+    while (q--)
+    {
+        int x;
+        cin >> x;
+        cout << prime[x - 1] << endl;
+    }
+}
+```
+
+# Day33
+## 图论
+### dfs
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int> g[4];
+int vis[1000];
+int u, v;
+bool dfs(int x){
+	if(x==v)
+		return true;
+	vis[x] = 1;
+	bool ok = 0;
+	for (int i = 0; i < g[x].size();i++){
+		if(vis[g[x][i]])
+			continue;
+		if (dfs(g[x][i]) == true){
+			ok = true;
+		}
+	}
+	return ok;
+}
+
+int main(){
+	g[1].push_back(2);
+	g[1].push_back(3);
+	g[2].push_back(3);
+
+	cin >> u >> v;
+	cout << (dfs(u) ? "YES" : "NO");
+}
+```
+### bfs(更好)
+[图的遍历（简单版）](https://www.luogu.com.cn/problem/B3862)
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define double long double
+#define endl "\n"
+#define fi first
+#define se second
+#define mod3 998244353
+#define mod7 1000000007
+const int N = 1e6 + 10;
+const double eps =1e-4;
+
+vector<int> g[1001];
+int n, m,vis[1001];
+
+int bfs(int u){
+    for (int i = 1; i <= n;i++){
+        vis[i] = 0;
+    }//清空标记
+    queue<int> q;
+    q.push(u);//推入初始点
+    vis[u] = 1;
+    int mx = u;
+    while(q.size()){
+        int t = q.front();//拿出一个点
+        q.pop();
+        for(auto i:g[t]){//遍历所有边
+            if(vis[i]==1)//如果已经推进去了就跳过
+                continue;
+            vis[i] = 1;//标记
+            mx = max(mx, i);
+            q.push(i);//并推入
+        }
+    }
+    return mx;
+}
+
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(0);cout.tie(0);
+    cout << fixed << setprecision(6);
+
+    cin >> n >> m;
+    for (int i = 1; i <= m;i++){
+        int x, y;
+        cin >> x >> y;
+        g[x].push_back(y); // 有向图存数
+        // g[y].push_back(x); // 无向图存数
+    }
+    for (int i = 1; i <= n;i++){
+        cout << bfs(i) << " \n"[i == n];
+    }
+        return 0;
+}
+```
+
+### 反向图
+[P3916 图的遍历](https://www.luogu.com.cn/problem/P3916)
+#### dfs
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define double long double
+#define endl "\n"
+#define fi first
+#define se second
+#define mod3 998244353
+#define mod7 1000000007
+const int N = 1e6 + 10;
+const double eps =1e-4;
+
+vector<int> g[100010];
+int n, m,vis[100010];
+
+void dfs(int x,int d){
+    if(vis[x]) return;//如果已经被探过了就返回
+    vis[x] = d;
+    for (int i = 0; i < g[x].size();i++){
+        dfs(g[x][i], d);
+    }
+}
+
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(0);cout.tie(0);
+    cout << fixed << setprecision(6);
+
+    cin >> n >> m;
+    for (int i = 1; i <= m;i++){
+        int x, y;
+        cin >> x >> y;
+        g[y].push_back(x); // 反向图
+    }
+    for (int i = n; i >=1;i--){//反向探
+        dfs(i,i);
+    }
+    for (int i = 1; i <= n;i++){
+        cout << vis[i] << " \n"[i == n];
+    }
+        return 0;
+}
+```
+#### bfs
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>a[100001];
+int v[100001],n,m;
+void bfs(int u){
+	queue<int>q;
+	q.push(u);//推入起始点 
+	if(v[u]==0)
+	v[u]=u;
+	while(q.size()){
+		int t=q.front();
+		q.pop();
+		for(auto i : a[t]){//遍历所以边 
+			if(v[i]!=0) continue;
+			v[i]=u;
+			q.push(i);
+		}
+	}
+}
+int main()
+{
+	for(int i=1;i<=n;i++){
+		v[i]=0;
+	}
+	cin>>n>>m;
+	for(int i=1;i<=m;i++){
+		int x,y;
+		cin>>x>>y;
+		a[y].push_back(x);
+	}
+	for(int i=n;i>=1;i--){
+		bfs(i);
+	}
+	for(int i=1;i<=n;i++){
+		cout<<v[i]<<" ";
+	}
+}
+```
+
+
+## 博弈论
+若`a == b`,则对面怎么拿我就怎么拿，即必胜
+可以推导出 `a^b == 0` 为必输态
+必胜态在一定条件下可以转换成必输态
+将必输态留给对面则必胜
+```cpp
+若 a^b^c^d == z 且 z>0
+一定存在一个x
+使得 (a-x)^b^c^d == 0	//必输态
+```
+
+## 离散化
+```cpp
+vector<int> g;
+for (int i = 1; i <= n; i++){
+	g.push_back(a[i]);
+}
+sort(g.begin(), g.end());
+g.erase(unique(g.begin(), g.end()), g.end());//去重
+[ 1, 3, 4 ] 
+for (int i = 1; i <= n; i++){
+	a[i] = lower bound(g, begin(), g.end(), a[i]) - g.begin() + 1;
+	cout << a[i] << " \n"[i == n];
+}
+```
+
+
+## 去重
+
+$g.erase(unique(g.begin(),g.end()),g.end());$//去重
+
+在STL中unique函数是一个去重函数， unique的功能是去除相邻的重复元素(只保留一个),其实它并不真正把重复的元素删除，是把重复的元素移到后面去了，然后依然保存到了原数组中，然后 返回去重后最后一个元素的地址，因为unique去除的是相邻的重复元素，所以一般用之前都会要排一下序。
+
+sort，unique和erase的联合使用,可以将一个有重复元素的数组的重复元素去除，从而转化成一个无重复元素的数组
+```cpp
+end_unique=unique(result.begin(),result.end());
+result.erase(end_unique,result.end());
+```
+由于 end_unique返回去重后最后一个元素的位置，而重复的元素都被移动到后面去了，所以要将从去重后最后一个元素的地址 到 原数组最后一个地址 这些地址中的元素去掉，从而得到无重复元素的数组
+
+`lower_bound && upper_bound`
+内置函数二分$O(logn)$
+```cpp
+lower_bound(l,r,x)	// 在l~r中找到第一个大于等于x的下标
+// [1 2 3 4 5 6] 需要升序
+upper_bound(l,r,x)	// 在l~r中找到第一个大于x的下标
+```
+
+# Day33
+## 树
 
