@@ -20,4 +20,5 @@ int main()
 			}
 		}
 		cout << nums<<endl;
+		d;
 }
